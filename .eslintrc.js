@@ -2,9 +2,10 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
+    node: true,
   },
   extends: [
-    'airbnb',
+    'airbnb','prettier','prettier/react',
   ],
   globals: {
     Atomics: 'readonly',

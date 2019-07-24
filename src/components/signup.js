@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Form, Icon, Input, Button, Checkbox } from 'antd';
-import "./signup.css"
+import "./Signup.css"
 
 class NormalLoginForm extends React.Component {
   handleSubmit = e => {
@@ -67,6 +67,4 @@ class NormalLoginForm extends React.Component {
   }
 }
 
-const SignUp = Form.create({ name: 'normal_login' })(NormalLoginForm);
-
-export default SignUp;
+export const SignUp = Form.create({ name: 'normal_login' })(NormalLoginForm);
