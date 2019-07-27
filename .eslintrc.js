@@ -5,7 +5,7 @@ module.exports = {
     node: true,
   },
   extends: [
-    'airbnb','prettier','prettier/react',
+    'eslint:recommended','prettier','prettier/react',
   ],
   globals: {
     Atomics: 'readonly',

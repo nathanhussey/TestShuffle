@@ -1,15 +1,13 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable padded-blocks */
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Row, Col, Button } from 'antd';
-
+import React from "react";
+import { Link } from "react-router-dom";
+import { Row, Col, Button } from "antd";
 
 const Nav = () => {
-
   return (
-    <div >
+    <div>
       <Row type="flex" justify="start" className="bg-light-blue pa4">
         <Col span={2}>
           <Button type="primary">
@@ -19,6 +17,11 @@ const Nav = () => {
         <Col span={2} offset={16}>
           <Button type="primary">
             <Link to="/signup">Sign Up</Link>
+          </Button>
+        </Col>
+        <Col span={2}>
+          <Button type="link">
+            <Link to="/testcard">TestCard</Link>
           </Button>
         </Col>
         <Col span={2}>
@@ -33,12 +36,9 @@ const Nav = () => {
         </Col>
       </Row>
       <Row />
-
     </div>
 
-
-  // eslint-disable-next-line no-tabs
+    // eslint-disable-next-line no-tabs
   );
-
 };
 export default Nav;

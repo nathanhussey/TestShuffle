@@ -8,6 +8,7 @@ import { SignUp } from "../components/Signup";
 // eslint-disable-next-line import/named
 import { LogIn } from "../components/LogIn";
 import Dashboard from "./Dashboard";
+import TestCard from "./TestCard";
 
 const App = () => (
   <Router>
@@ -17,6 +18,7 @@ const App = () => (
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={LogIn} />
         <Route exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/testcard" component={TestCard} />
       </Switch>
     </div>
   </Router>
