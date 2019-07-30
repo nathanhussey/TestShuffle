@@ -10,8 +10,13 @@ const AnswerCard = ({ answerInput }) => {
     <div>
       <form>
         <label>
-          Answer Chooses
-          <input type="text" value={answer} onChange={handleChange} />
+          <textarea
+            type="text"
+            value={answer}
+            onChange={handleChange}
+            cols="100"
+            rows="2"
+          />
         </label>
       </form>
     </div>

@@ -10,29 +10,29 @@ const MCCard = ({ questions, answers }) => {
         <Col
           xs={24}
           sm={24}
-          md={12}
-          lg={12}
-          xl={6}
-          className="bg-light-blue pa3 mt2"
+          md={20}
+          lg={20}
+          xl={20}
+          className="bg-light-blue pa3 mt2 br3"
         >
           <h1>{questions}</h1>
-        </Col>
-      </Row>
-      <Row type="flex" justify="center" align="middle">
-        <Col
-          xs={24}
-          sm={24}
-          md={12}
-          lg={12}
-          xl={6}
-          className="bg-light-blue pa3"
-        >
-          <AnswerList answers={answers} />
-        </Col>
-      </Row>
-      <Row type="flex" justify="center" align="middle">
-        <Col xs={24} sm={24} md={12} lg={12} xl={6}>
-          <AddAnswer />
+          <Row type="flex" justify="center" align="middle">
+            <Col
+              xs={24}
+              sm={24}
+              md={20}
+              lg={20}
+              xl={20}
+              className="bg-light-blue pa3"
+            >
+              <AnswerList answers={answers} />
+            </Col>
+          </Row>
+          <Row type="flex" justify="center" align="middle">
+            <Col xs={24} sm={24} md={20} lg={20} xl={20}>
+              <AddAnswer />
+            </Col>
+          </Row>
         </Col>
       </Row>
     </div>

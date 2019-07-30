@@ -7,7 +7,7 @@ const AddAnswer = () => {
   return (
     <div>
       <Button type="primary" size="large" className="f4 lh-copy">
-        Add Card
+        Add Additional Answer
       </Button>
     </div>
   );
