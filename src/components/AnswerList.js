@@ -9,7 +9,7 @@ const AnswerList = ({ answers }) => {
     </div>
   );
 };
-/*DO NOT DELETE removed for test purposes 
+/*DO NOT DELETE removed for test purpose(s) 
 {answers.map((info, i) => {
   return <AnswerCard answerInput={answers[i]} />;
 })}*/
