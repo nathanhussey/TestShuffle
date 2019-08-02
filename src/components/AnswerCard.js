@@ -1,8 +1,15 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const AnswerCard = ({ answerInput }) => {
+const AnswerCard = ({ answerInput, updateComp, isUpdateClicked, id }) => {
   const [answer, setAnswer] = useState(answerInput);
+  useEffect(() => {
+    if (isUpdateClicked) {
+      updateComp(answer, id);
+      console.log("hello");
+    }
+  }, [isUpdateClicked]);
+
   const handleChange = e => {
     setAnswer(e.target.value);
   };

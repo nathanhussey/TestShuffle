@@ -8,8 +8,8 @@ const ShowCardList = ({ testData }) => {
         return (
           <MCCard
             key={testData[i].id}
-            questions={testData[i].title}
-            answers={testData[i].body}
+            questions={testData[i].question}
+            answers={testData[i].answers}
           />
         );
       })}
