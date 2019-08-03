@@ -5,12 +5,12 @@ export const testJson = [
     question:
       "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
     answers: [
+      { id: 133, answer: "um est autem sunt rem eveniet archi" },
       {
         id: 424,
         answer:
           "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-      },
-      { id: 133, answer: "um est autem sunt rem eveniet archi" }
+      }
     ]
   },
   {

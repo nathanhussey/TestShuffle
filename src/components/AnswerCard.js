@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 
 const AnswerCard = ({ answerInput, updateComp, isUpdateClicked, id }) => {
   const [answer, setAnswer] = useState(answerInput);
+
   useEffect(() => {
     if (isUpdateClicked) {
       updateComp(answer, id);
-      console.log("hello");
     }
   }, [isUpdateClicked]);
 

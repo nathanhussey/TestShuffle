@@ -2,28 +2,36 @@ import React, { useState } from "react";
 import { Row, Col, Button, Divider } from "antd";
 import AnswerList from "./AnswerList";
 import AddAnswer from "./AddAnswer";
+import Item from "antd/lib/list/Item";
 
-//add update array in state in handleUpdate()
-//add functionality to 'add additional Answer'
+//add fix unique key for added answers
 //add edit to MCCard
 
 const MCCard = ({ questions, answers }) => {
   const [questionsComp, setQuestionsComp] = useState(questions);
-  const [answersComp, setanswersComp] = useState([answers]);
+  const [answersComp, setanswersComp] = useState(answers);
   const [isUpdateClicked, setIsUpdateClicked] = useState(false);
-  console.log(answersComp);
+
   const handleUpdate = (input, id) => {
-    setanswersComp(ans => {
-      const newarr = answersComp.map((item, i) => {
-        if (item[i].id === id) {
-          return (item[i].answer = input);
-        } else {
-          return item;
-        }
-      });
-      return newarr;
+    answersComp.map((item, i) => {
+      if (item.id == id) {
+        return (item.answer = input);
+      }
     });
+    console.log(answersComp);
+    setanswersComp(answersComp);
+
     setIsUpdateClicked(false);
+  };
+
+  const handleAddAnswer = () => {
+    const newAns = [{ id: null, answer: "" }];
+    let newarr = answersComp.map((item, i) => {
+      return item;
+    });
+
+    setanswersComp(answersComp.concat(newAns));
+    console.log(answersComp.concat(newAns));
   };
 
   const handleUpdateButton = () => {
@@ -51,7 +59,7 @@ const MCCard = ({ questions, answers }) => {
               className="bg-light-blue pa3"
             >
               <AnswerList
-                answers={answers}
+                answers={answersComp}
                 updateComp={handleUpdate}
                 isUpdateClicked={isUpdateClicked}
               />
@@ -59,7 +67,7 @@ const MCCard = ({ questions, answers }) => {
           </Row>
           <Row type="flex" justify="center" align="middle">
             <Col xs={24} sm={24} md={20} lg={20} xl={20}>
-              <AddAnswer />
+              <AddAnswer addAns={handleAddAnswer} />
             </Col>
           </Row>
           <Row type="flex" justify="center" align="middle">
@@ -72,5 +80,14 @@ const MCCard = ({ questions, answers }) => {
     </div>
   );
 };
-
+/*setanswersComp(ans => {
+      const newarr = answersComp.map((item, i) => {
+        if (item[i].id === id) {
+          return (item[i].answer = input);
+        } else {
+          return item;
+        }
+      });
+      return newarr;
+    });*/
 export default MCCard;
