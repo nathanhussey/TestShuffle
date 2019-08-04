@@ -4,7 +4,6 @@ import AnswerList from "./AnswerList";
 import AddAnswer from "./AddAnswer";
 import Item from "antd/lib/list/Item";
 
-//add fix unique key for added answers
 //add edit to MCCard
 
 const MCCard = ({ questions, answers }) => {
@@ -18,22 +17,46 @@ const MCCard = ({ questions, answers }) => {
         return (item.answer = input);
       }
     });
-    console.log(answersComp);
     setanswersComp(answersComp);
 
     setIsUpdateClicked(false);
   };
 
   const handleAddAnswer = () => {
-    const newAns = [{ id: null, answer: "" }];
-    let newarr = answersComp.map((item, i) => {
-      return item;
-    });
-
-    setanswersComp(answersComp.concat(newAns));
-    console.log(answersComp.concat(newAns));
+    const rndNumfunc = () => {
+      let rndNumId = Math.floor(Math.random() * 10);
+      return rndNumId;
+    };
+    const createNewId = () => {
+      let r = rndNumfunc();
+      let match = false;
+      answersComp.forEach(item => {
+        console.log(r);
+        if (item.id === r) {
+          match = true;
+        }
+        return match;
+      });
+      let isThereMatch = [match, r];
+      return isThereMatch;
+    };
+    let newIdFunc = () => {
+      const newAns = [{ id: null, answer: "" }];
+      let runCreateNewId = createNewId();
+      console.log(runCreateNewId[1]);
+      if (runCreateNewId[0]) {
+        console.log("run1");
+        newIdFunc();
+      } else {
+        console.log("run2");
+        newAns[0].id = runCreateNewId[1];
+        console.log(newAns[0].id);
+        setanswersComp(answersComp.concat(newAns));
+        console.log(answersComp.concat(newAns));
+      }
+    };
+    newIdFunc();
   };
-
   const handleUpdateButton = () => {
     setIsUpdateClicked(true);
   };

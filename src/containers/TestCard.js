@@ -5,8 +5,11 @@ import ShowCardList from "../components/ShowCardList";
 import AddMCCard from "../components/AddMCCard";
 import SaveTestButton from "../components/SaveTestButton";
 
+//fix add multiple choice question feature with handleAddAnswer from MCCard.js
+//create shuffle algo
+
 const TestCard = () => {
-  const [fetch_test, setFetch_test] = useState([
+  const [fetchTest, setFetchTest] = useState([
     {
       userId: 1,
       id: 1,
@@ -59,15 +62,44 @@ const TestCard = () => {
     }
   ]);
 
-  const [savedState, setsavedState] = useState([{}]);
+  const [testData, setTestData] = useState(fetchTest);
+  console.log(testData);
+  const [savedState, setSavedState] = useState([{}]);
+
+  const handleAddMCCard = () => {
+    console.log("hellllllo");
+    const newMCCardId = [
+      {
+        userId: 1,
+        id: null,
+        question: "",
+        answers: [{ id: null, answer: "" }]
+      }
+    ];
+    const createNewId = e => {
+      let rndNum = Math.floor(Math.random() * 10);
+      testData.forEach(item => {
+        if (rndNum === item.id) {
+          createNewId(e);
+        }
+      });
+      return rndNum;
+    };
+
+    const newId = createNewId();
+    newMCCardId[0].answers[0].id = newId;
+    newMCCardId[0].id = newId;
+    setTestData(testData.concat(newMCCardId));
+    console.log(testData.concat(newMCCardId));
+  };
 
   const handleSaveTest = e => {};
 
   return (
     <div>
       <h1>Test Title</h1>
-      <ShowCardList testData={fetch_test} />
-      <AddMCCard />
+      <ShowCardList testData={testData} />
+      <AddMCCard handleClick={handleAddMCCard} />
       <SaveTestButton handleSave={handleSaveTest} />
     </div>
   );
