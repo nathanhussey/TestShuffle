@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ShowCardList from "../components/ShowCardList";
 import AddMCCard from "../components/AddMCCard";
 import SaveTestButton from "../components/SaveTestButton";
+import uuid from "uuid";
 
 //fix add multiple choice question feature with handleAddAnswer from MCCard.js
 //create shuffle algo
@@ -64,7 +65,6 @@ const TestCard = () => {
 
   const [testData, setTestData] = useState(fetchTest);
   console.log(testData);
-  const [savedState, setSavedState] = useState([{}]);
 
   const handleAddMCCard = () => {
     console.log("hellllllo");
@@ -76,19 +76,10 @@ const TestCard = () => {
         answers: [{ id: null, answer: "" }]
       }
     ];
-    const createNewId = e => {
-      let rndNum = Math.floor(Math.random() * 10);
-      testData.forEach(item => {
-        if (rndNum === item.id) {
-          createNewId(e);
-        }
-      });
-      return rndNum;
-    };
-
-    const newId = createNewId();
-    newMCCardId[0].answers[0].id = newId;
-    newMCCardId[0].id = newId;
+    newMCCardId[0].id = uuid.v4();
+    console.log(newMCCardId[0].id);
+    newMCCardId[0].answers[0].id = uuid.v4();
+    console.log(newMCCardId[0].answers[0].id);
     setTestData(testData.concat(newMCCardId));
     console.log(testData.concat(newMCCardId));
   };
