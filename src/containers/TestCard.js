@@ -15,7 +15,7 @@ const TestCard = () => {
       userId: 1,
       id: 1,
       question:
-        "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+        "sunt aut facere repellat provident wccaecati optio reprehenderit",
       answers: [
         {
           id: 424,
@@ -62,12 +62,10 @@ const TestCard = () => {
       ]
     }
   ]);
-
   const [testData, setTestData] = useState(fetchTest);
   console.log(testData);
 
   const handleAddMCCard = () => {
-    console.log("hellllllo");
     const newMCCardId = [
       {
         userId: 1,
@@ -77,15 +75,13 @@ const TestCard = () => {
       }
     ];
     newMCCardId[0].id = uuid.v4();
-    console.log(newMCCardId[0].id);
     newMCCardId[0].answers[0].id = uuid.v4();
-    console.log(newMCCardId[0].answers[0].id);
     setTestData(testData.concat(newMCCardId));
-    console.log(testData.concat(newMCCardId));
   };
 
-  const handleSaveTest = e => {};
+  const handleDeleteMCCard = () => {};
 
+  const handleSaveTest = e => {};
   return (
     <div>
       <h1>Test Title</h1>
@@ -99,7 +95,7 @@ const TestCard = () => {
 /*fetch("https://jsonplaceholder.typicode.com/posts")
 .then(response => response.json())
 .then(json => {
-  setFetch_test(json);
+  setiFetch_test(json);
 });
 }, []);*/
 export default TestCard;
