@@ -15,14 +15,17 @@ const MCCard = ({ questions, answers }) => {
   const [isUpdateClicked, setIsUpdateClicked] = useState(false);
   const [deleteCard, setDeleteCard] = useState("");
 
-  const handleUpdate = (input, id) => {
+  const handleUpdateAns = (input, id) => {
     answersComp.map((item, i) => {
       if (item.id == id) {
         return (item.answer = input);
       }
     });
     setAnswersComp(answersComp);
+  };
 
+  const handleUpdateQues = input => {
+    setQuestionsComp(input);
     setIsUpdateClicked(false);
   };
 
@@ -63,6 +66,9 @@ const MCCard = ({ questions, answers }) => {
   const handleDelete = () => {
     setDeleteCard("DELETE");
   };
+
+  console.log(questionsComp);
+
   if (deleteCard === "DELETE") {
     return <DeleteCard />;
   } else {
@@ -78,9 +84,9 @@ const MCCard = ({ questions, answers }) => {
             className="bg-light-blue pa3 mt2 br3"
           >
             <QuestionCard
-              questionInput={questions}
+              questionInput={questionsComp}
               isUpdateClicked={isUpdateClicked}
-              updateComp={handleUpdate}
+              updateComp={handleUpdateQues}
             />
             <Row type="flex" justify="center" align="middle">
               <Col
@@ -93,7 +99,7 @@ const MCCard = ({ questions, answers }) => {
               >
                 <AnswerList
                   answers={answersComp}
-                  updateComp={handleUpdate}
+                  updateComp={handleUpdateAns}
                   isUpdateClicked={isUpdateClicked}
                 />
               </Col>
