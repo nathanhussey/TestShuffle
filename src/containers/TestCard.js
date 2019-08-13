@@ -6,16 +6,13 @@ import AddMCCard from "../components/AddMCCard";
 import SaveTestButton from "../components/SaveTestButton";
 import uuid from "uuid";
 
-//fix add multiple choice question feature with handleAddAnswer from MCCard.js
-//create shuffle algo
-
 const TestCard = () => {
   const [fetchTest, setFetchTest] = useState([
     {
       userId: 1,
       id: 1,
       question:
-        "sunt aut facere repellat provident wccaecati optio reprehenderit",
+        "sunt aut facere repellat provident wccaecati optio reprehenderit?",
       answers: [
         {
           id: 424,
@@ -33,7 +30,7 @@ const TestCard = () => {
     {
       userId: 1,
       id: 2,
-      question: "qui est esse",
+      question: "qui est esse?",
       answers: [
         {
           id: 652,
@@ -46,7 +43,7 @@ const TestCard = () => {
     {
       userId: 1,
       id: 3,
-      question: "ea molestias quasi exercitationem repellat qui ipsa sit aut",
+      question: "ea molestias quasi exercitationem repellat qui ipsa sit aut?",
       answers: [
         {
           id: 654,
@@ -59,7 +56,7 @@ const TestCard = () => {
     {
       userId: 1,
       id: 4,
-      question: "eum et est occaecati",
+      question: "eum et est occaecati?",
       answers: [
         {
           id: 659,
@@ -71,7 +68,8 @@ const TestCard = () => {
     }
   ]);
   const [testData, setTestData] = useState(fetchTest);
-  console.log(testData);
+  const [isTestSaved, setIsTestSaved] = useState(false);
+  const [savedTestData, setSavedTestData] = [];
 
   const handleAddMCCard = () => {
     const newMCCardId = [
@@ -96,17 +94,50 @@ const TestCard = () => {
     console.log(testData);
     setTestData([...testData]);
   };
+  const toggleIsTestSaved = () => {
+    setIsTestSaved(true);
+  };
+  const handleSaveTest = (mcId, newQuestion, newAnswers) => {
+    const newArr = testData.map((item, i) => {
+      if (item.id == mcId) {
+        item.question = newQuestion;
+        item.answers = newAnswers;
+        return item;
+      } else {
+        return item;
+      }
+    });
+    setTestData(newArr);
+    setIsTestSaved(false);
+  };
 
-  const handleSaveTest = e => {};
+  const shuffledTestData = () => {
+    const newShuffledArr = testData.map((mcQ, i) => {
+      mcQ.answers.forEach(element => {
+        console.log(element);
+        let letters = ["a)", "b)", "c)", "d)", "e)"];
+        let randfunc = () => {
+          return letters[Math.floor(Math.random() * mcQ.answers.length)];
+        };
+        element.choiceLetter = randfunc();
+        console.log(element.choiceLetter);
+      });
+      return mcQ;
+    });
+    console.log(newShuffledArr);
+  };
+  shuffledTestData();
   return (
     <div>
       <h1>Test Title</h1>
       <ShowCardList
         testData={testData}
         handleDeleteMCCard={handleDeleteMCCard}
+        isTestSaved={isTestSaved}
+        handleSaveTest={handleSaveTest}
       />
       <AddMCCard handleClick={handleAddMCCard} />
-      <SaveTestButton handleSave={handleSaveTest} />
+      <SaveTestButton toggleIsTestSaved={toggleIsTestSaved} />
     </div>
   );
 };

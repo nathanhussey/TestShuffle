@@ -1,7 +1,12 @@
 import React from "react";
 import MCCard from "./MCCard";
 
-const ShowCardList = ({ testData, handleDeleteMCCard }) => {
+const ShowCardList = ({
+  testData,
+  handleDeleteMCCard,
+  handleSaveTest,
+  isTestSaved
+}) => {
   return (
     <div>
       {testData.map((info, i) => {
@@ -12,6 +17,8 @@ const ShowCardList = ({ testData, handleDeleteMCCard }) => {
             questions={testData[i].question}
             answers={testData[i].answers}
             handleDeleteMCCard={handleDeleteMCCard}
+            isTestSaved={isTestSaved}
+            handleSaveTest={handleSaveTest}
           />
         );
       })}

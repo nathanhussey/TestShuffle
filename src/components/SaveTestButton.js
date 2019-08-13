@@ -1,15 +1,15 @@
 import React from "react";
 import { Row, Col, Button, Divider } from "antd";
 
-const SaveTestButton = ({ handleSave }) => {
+const SaveTestButton = ({ toggleIsTestSaved }) => {
   return (
     <Button
       type="primary"
       size="large"
       className="f4 lh-copy"
-      onClick={handleSave}
+      onClick={toggleIsTestSaved}
     >
-      Save Test & got to DashBoard
+      Save Test
     </Button>
   );
 };

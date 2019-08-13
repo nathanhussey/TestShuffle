@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Divider } from "antd";
 import AnswerList from "./AnswerList";
 import AddAnswer from "./AddAnswer";
@@ -7,13 +7,24 @@ import DeleteCard from "./DeleteCard";
 import AnswerListStatic from "./AnswerListStatic";
 import Item from "antd/lib/list/Item";
 
-//im working on handleUpdateAns
-
-const MCCard = ({ questions, answers, mcId, handleDeleteMCCard }) => {
+const MCCard = ({
+  questions,
+  answers,
+  mcId,
+  handleDeleteMCCard,
+  handleSaveTest,
+  isTestSaved
+}) => {
   const [questionsComp, setQuestionsComp] = useState(questions);
   const [answersComp, setAnswersComp] = useState(answers);
   const [isUpdateClicked, setIsUpdateClicked] = useState(false);
   const [MCCardState, setMCCardState] = useState("");
+
+  useEffect(() => {
+    if (isTestSaved === true) {
+      handleSaveTest(mcId, questionsComp, answersComp);
+    }
+  }, [isTestSaved]);
 
   const handleUpdateAns = (input, checkedInput, id) => {
     const newArr = answersComp.map((item, i) => {
@@ -25,7 +36,6 @@ const MCCard = ({ questions, answers, mcId, handleDeleteMCCard }) => {
         return item;
       }
     });
-    console.log(newArr);
     setAnswersComp(newArr);
     setIsUpdateClicked(false);
     setMCCardState("");
@@ -90,7 +100,6 @@ const MCCard = ({ questions, answers, mcId, handleDeleteMCCard }) => {
   const goBack = () => {
     setMCCardState("");
   };
-  console.log(answersComp);
   if (MCCardState === "DELETING") {
     return (
       <DeleteCard
@@ -180,7 +189,7 @@ const MCCard = ({ questions, answers, mcId, handleDeleteMCCard }) => {
                 xl={24}
                 className="bg-light-blue mt2 mb4 br3"
               >
-                {questions}
+                {questionsComp}
               </Col>
             </Row>
             <Row type="flex" justify="start" align="middle">
@@ -196,7 +205,7 @@ const MCCard = ({ questions, answers, mcId, handleDeleteMCCard }) => {
               </Col>
               <Col xs={24} sm={24} md={24} lg={24} xl={24} offset={22}>
                 <span className="child bg-black-40 " onClick={handleEdit}>
-                  Card Title
+                  Edit
                 </span>
               </Col>
             </Row>
