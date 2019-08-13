@@ -4,29 +4,35 @@ import AnswerList from "./AnswerList";
 import AddAnswer from "./AddAnswer";
 import QuestionCard from "./QuestionCard";
 import DeleteCard from "./DeleteCard";
+import AnswerListStatic from "./AnswerListStatic";
 import Item from "antd/lib/list/Item";
 
-//add edit to MCCard
-//give question it own updatehandler
+//im working on handleUpdateAns
 
-const MCCard = ({ questions, answers }) => {
+const MCCard = ({ questions, answers, mcId, handleDeleteMCCard }) => {
   const [questionsComp, setQuestionsComp] = useState(questions);
   const [answersComp, setAnswersComp] = useState(answers);
   const [isUpdateClicked, setIsUpdateClicked] = useState(false);
-  const [deleteCard, setDeleteCard] = useState("");
+  const [MCCardState, setMCCardState] = useState("");
 
-  const handleUpdateAns = (input, id) => {
-    answersComp.map((item, i) => {
+  const handleUpdateAns = (input, checkedInput, id) => {
+    const newArr = answersComp.map((item, i) => {
       if (item.id == id) {
-        return (item.answer = input);
+        item.answer = input;
+        item.checked = checkedInput;
+        return item;
+      } else {
+        return item;
       }
     });
-    setAnswersComp(answersComp);
+    console.log(newArr);
+    setAnswersComp(newArr);
+    setIsUpdateClicked(false);
+    setMCCardState("");
   };
 
   const handleUpdateQues = input => {
     setQuestionsComp(input);
-    setIsUpdateClicked(false);
   };
 
   const handleAddAnswer = () => {
@@ -48,7 +54,7 @@ const MCCard = ({ questions, answers }) => {
       return isThereMatch;
     };
     let newIdFunc = () => {
-      const newAns = [{ id: null, answer: "" }];
+      const newAns = [{ id: null, answer: "", checked: false }];
       let runCreateNewId = createNewId();
       if (runCreateNewId[0]) {
         newIdFunc();
@@ -63,15 +69,37 @@ const MCCard = ({ questions, answers }) => {
   const handleUpdateButton = () => {
     setIsUpdateClicked(true);
   };
+
   const handleDelete = () => {
-    setDeleteCard("DELETE");
+    setMCCardState("DELETING");
   };
 
-  console.log(questionsComp);
+  const handleEdit = () => {
+    setMCCardState("EDITMODE");
+  };
 
-  if (deleteCard === "DELETE") {
-    return <DeleteCard />;
-  } else {
+  const handleDeleteAns = ansId => {
+    answersComp.map((ans, i) => {
+      if (ans.id === ansId) {
+        answersComp.splice(i, 1);
+      }
+    });
+    setAnswersComp([...answersComp]);
+  };
+
+  const goBack = () => {
+    setMCCardState("");
+  };
+  console.log(answersComp);
+  if (MCCardState === "DELETING") {
+    return (
+      <DeleteCard
+        mcId={mcId}
+        handleDeleteMCCard={handleDeleteMCCard}
+        goBack={goBack}
+      />
+    );
+  } else if (MCCardState === "EDITMODE") {
     return (
       <div>
         <Row type="flex" justify="center" align="middle">
@@ -83,34 +111,46 @@ const MCCard = ({ questions, answers }) => {
             xl={20}
             className="bg-light-blue pa3 mt2 br3"
           >
-            <QuestionCard
-              questionInput={questionsComp}
-              isUpdateClicked={isUpdateClicked}
-              updateComp={handleUpdateQues}
-            />
-            <Row type="flex" justify="center" align="middle">
+            <Row>
               <Col
                 xs={24}
                 sm={24}
-                md={20}
-                lg={20}
-                xl={20}
-                className="bg-light-blue pa3"
+                md={24}
+                lg={24}
+                xl={24}
+                className="bg-light-blue mt2 br3"
+              >
+                <QuestionCard
+                  questionInput={questionsComp}
+                  isUpdateClicked={isUpdateClicked}
+                  updateComp={handleUpdateQues}
+                />
+              </Col>
+            </Row>
+            <Row type="flex" justify="start" align="middle">
+              <Col
+                xs={24}
+                sm={24}
+                md={24}
+                lg={24}
+                xl={24}
+                className="bg-light-blue"
               >
                 <AnswerList
                   answers={answersComp}
                   updateComp={handleUpdateAns}
                   isUpdateClicked={isUpdateClicked}
+                  handleDeleteAns={handleDeleteAns}
                 />
               </Col>
             </Row>
-            <Row type="flex" justify="center" align="middle">
-              <Col xs={24} sm={24} md={20} lg={20} xl={20}>
+            <Row type="flex" justify="start" align="middle">
+              <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                 <AddAnswer addAns={handleAddAnswer} />
               </Col>
             </Row>
-            <Row type="flex" justify="center" align="middle">
-              <Col xs={24} sm={24} md={20} lg={20} xl={20}>
+            <Row type="flex" justify="start" align="middle">
+              <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                 <Button onClick={handleUpdateButton}>Update</Button>
                 <Button onClick={handleDelete}>Delete Question</Button>
               </Col>
@@ -119,16 +159,52 @@ const MCCard = ({ questions, answers }) => {
         </Row>
       </div>
     );
+  } else {
+    return (
+      <div className=" link  hide-child br2 cover">
+        <Row type="flex" justify="center" align="middle">
+          <Col
+            xs={24}
+            sm={24}
+            md={20}
+            lg={20}
+            xl={20}
+            className="bg-light-blue pa3 mt2 br3"
+          >
+            <Row>
+              <Col
+                xs={24}
+                sm={24}
+                md={24}
+                lg={24}
+                xl={24}
+                className="bg-light-blue mt2 mb4 br3"
+              >
+                {questions}
+              </Col>
+            </Row>
+            <Row type="flex" justify="start" align="middle">
+              <Col
+                xs={24}
+                sm={24}
+                md={24}
+                lg={24}
+                xl={24}
+                className="bg-light-blue"
+              >
+                <AnswerListStatic answers={answersComp} />
+              </Col>
+              <Col xs={24} sm={24} md={24} lg={24} xl={24} offset={22}>
+                <span className="child bg-black-40 " onClick={handleEdit}>
+                  Card Title
+                </span>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </div>
+    );
   }
 };
-/*setanswersComp(ans => {
-      const newarr = answersComp.map((item, i) => {
-        if (item[i].id === id) {
-          return (item[i].answer = input);
-        } else {
-          return item;
-        }
-      });
-      return newarr;
-    });*/
+
 export default MCCard;

@@ -3,7 +3,6 @@ import { Row, Col, Button, Divider } from "antd";
 import { Link } from "react-router-dom";
 
 const AddMCCard = ({ handleClick }) => {
-  console.log("it works");
   return (
     <div>
       <Row type="flex" justify="center" align="middle">

@@ -20,9 +20,14 @@ const TestCard = () => {
         {
           id: 424,
           answer:
-            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          checked: false
         },
-        { id: 133, answer: "um est autem sunt rem eveniet archi" }
+        {
+          id: 133,
+          answer: "um est autem sunt rem eveniet archi",
+          checked: true
+        }
       ]
     },
     {
@@ -33,7 +38,8 @@ const TestCard = () => {
         {
           id: 652,
           answer:
-            "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
+            "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla",
+          checked: false
         }
       ]
     },
@@ -45,7 +51,8 @@ const TestCard = () => {
         {
           id: 654,
           answer:
-            "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
+            "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut",
+          checked: false
         }
       ]
     },
@@ -57,7 +64,8 @@ const TestCard = () => {
         {
           id: 659,
           answer:
-            "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit"
+            "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit",
+          checked: false
         }
       ]
     }
@@ -71,7 +79,7 @@ const TestCard = () => {
         userId: 1,
         id: null,
         question: "",
-        answers: [{ id: null, answer: "" }]
+        answers: [{ id: null, answer: "", checked: false }]
       }
     ];
     newMCCardId[0].id = uuid.v4();
@@ -79,13 +87,24 @@ const TestCard = () => {
     setTestData(testData.concat(newMCCardId));
   };
 
-  const handleDeleteMCCard = () => {};
+  const handleDeleteMCCard = mcId => {
+    testData.map((card, i) => {
+      if (card.id === mcId) {
+        testData.splice(i, 1);
+      }
+    });
+    console.log(testData);
+    setTestData([...testData]);
+  };
 
   const handleSaveTest = e => {};
   return (
     <div>
       <h1>Test Title</h1>
-      <ShowCardList testData={testData} />
+      <ShowCardList
+        testData={testData}
+        handleDeleteMCCard={handleDeleteMCCard}
+      />
       <AddMCCard handleClick={handleAddMCCard} />
       <SaveTestButton handleSave={handleSaveTest} />
     </div>
