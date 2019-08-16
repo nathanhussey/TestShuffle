@@ -5,6 +5,7 @@ import ShowCardList from "../components/ShowCardList";
 import AddMCCard from "../components/AddMCCard";
 import SaveTestButton from "../components/SaveTestButton";
 import uuid from "uuid";
+import "array.prototype.move";
 
 const TestCard = () => {
   const [fetchTest, setFetchTest] = useState([
@@ -24,6 +25,24 @@ const TestCard = () => {
           id: 133,
           answer: "um est autem sunt rem eveniet archi",
           checked: true
+        },
+        {
+          id: 4321,
+          answer:
+            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          checked: false
+        },
+        {
+          id: 4134,
+          answer:
+            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          checked: false
+        },
+        {
+          id: 41114,
+          answer:
+            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          checked: false
         }
       ]
     },
@@ -36,6 +55,24 @@ const TestCard = () => {
           id: 652,
           answer:
             "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla",
+          checked: false
+        },
+        {
+          id: 41984,
+          answer:
+            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          checked: false
+        },
+        {
+          id: 459034,
+          answer:
+            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          checked: false
+        },
+        {
+          id: 41890634,
+          answer:
+            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
           checked: false
         }
       ]
@@ -50,6 +87,24 @@ const TestCard = () => {
           answer:
             "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut",
           checked: false
+        },
+        {
+          id: 41123134,
+          answer:
+            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          checked: false
+        },
+        {
+          id: 41010234,
+          answer:
+            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          checked: false
+        },
+        {
+          id: 413822934,
+          answer:
+            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          checked: false
         }
       ]
     },
@@ -60,6 +115,12 @@ const TestCard = () => {
       answers: [
         {
           id: 659,
+          answer:
+            "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit",
+          checked: false
+        },
+        {
+          id: 65999,
           answer:
             "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit",
           checked: false
@@ -113,20 +174,56 @@ const TestCard = () => {
 
   const shuffledTestData = () => {
     const newShuffledArr = testData.map((mcQ, i) => {
+      let letters = ["a)", "b)", "c)", "d)", "e)"];
       mcQ.answers.forEach(element => {
-        console.log(element);
-        let letters = ["a)", "b)", "c)", "d)", "e)"];
         let randfunc = () => {
-          return letters[Math.floor(Math.random() * mcQ.answers.length)];
+          if (mcQ.answers.length < letters.length) {
+            letters.splice(mcQ.answers.length);
+            let randomNum = Math.floor(Math.random() * letters.length);
+
+            return randomNum;
+          } else {
+            let randomNum = Math.floor(Math.random() * letters.length);
+
+            return randomNum;
+          }
         };
-        element.choiceLetter = randfunc();
-        console.log(element.choiceLetter);
+        let createdRandNum = randfunc();
+        element.choiceLetter = letters[createdRandNum];
+        letters.splice(createdRandNum, 1);
       });
       return mcQ;
     });
     console.log(newShuffledArr);
+    const sortChoiceLetters = newShuffledArr.map((mcQ, i) => {
+      mcQ.answers.forEach((element, e) => {
+        let letterOption = element.choiceLetter;
+        switch (letterOption) {
+          case "a)":
+            return mcQ.answers.move(e, 0);
+
+          case "b)":
+            return mcQ.answers.move(e, 1);
+
+          case "c)":
+            return mcQ.answers.move(e, 2);
+
+          case "d)":
+            return mcQ.answers.move(e, 3);
+
+          case "e)":
+            return mcQ.answers.move(e, 4);
+
+          default:
+            console.log("what went wrong");
+        }
+      });
+      return mcQ;
+    });
+    return sortChoiceLetters;
   };
-  shuffledTestData();
+  let result = shuffledTestData();
+  console.log(result);
   return (
     <div>
       <h1>Test Title</h1>
