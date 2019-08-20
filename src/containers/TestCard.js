@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ShowCardList from "../components/ShowCardList";
 import AddMCCard from "../components/AddMCCard";
 import SaveTestButton from "../components/SaveTestButton";
+import ShuffleSaveButton from "../components/ShuffleSaveButton";
 import uuid from "uuid";
 import "array.prototype.move";
 
@@ -17,8 +18,7 @@ const TestCard = () => {
       answers: [
         {
           id: 424,
-          answer:
-            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          answer: "quia et suscipit",
           checked: false
         },
         {
@@ -55,7 +55,7 @@ const TestCard = () => {
           id: 652,
           answer:
             "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla",
-          checked: false
+          checked: true
         },
         {
           id: 41984,
@@ -92,7 +92,7 @@ const TestCard = () => {
           id: 41123134,
           answer:
             "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
-          checked: false
+          checked: true
         },
         {
           id: 41010234,
@@ -123,15 +123,23 @@ const TestCard = () => {
           id: 65999,
           answer:
             "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit",
-          checked: false
+          checked: true
         }
       ]
     }
   ]);
   const [testData, setTestData] = useState(fetchTest);
   const [isTestSaved, setIsTestSaved] = useState(false);
-  const [savedTestData, setSavedTestData] = [];
+  const [shuffledData, setShuffledData] = useState([]);
+  const [didClickShuffle, setDidClickShuffle] = useState(false);
+  let tempTest = [];
 
+  useEffect(() => {
+    if (didClickShuffle === true) {
+      console.log(testData);
+      shuffledTestData();
+    }
+  }, [testData]);
   const handleAddMCCard = () => {
     const newMCCardId = [
       {
@@ -155,27 +163,24 @@ const TestCard = () => {
     console.log(testData);
     setTestData([...testData]);
   };
-  const toggleIsTestSaved = () => {
+
+  const changeSaveTest = () => {
     setIsTestSaved(true);
   };
+
   const handleSaveTest = (mcId, newQuestion, newAnswers) => {
-    const newArr = testData.map((item, i) => {
-      if (item.id == mcId) {
-        item.question = newQuestion;
-        item.answers = newAnswers;
-        return item;
-      } else {
-        return item;
-      }
-    });
-    setTestData(newArr);
+    let newObj = { id: mcId, question: newQuestion, answers: newAnswers };
+    tempTest.push(newObj);
+    setTestData(tempTest);
     setIsTestSaved(false);
   };
 
   const shuffledTestData = () => {
+    console.log(testData);
     const newShuffledArr = testData.map((mcQ, i) => {
       let letters = ["a)", "b)", "c)", "d)", "e)"];
-      mcQ.answers.forEach(element => {
+
+      let addLetter = mcQ.answers.map(element => {
         let randfunc = () => {
           if (mcQ.answers.length < letters.length) {
             letters.splice(mcQ.answers.length);
@@ -189,30 +194,33 @@ const TestCard = () => {
           }
         };
         let createdRandNum = randfunc();
-        element.choiceLetter = letters[createdRandNum];
+        element = { ...element, choiceLetter: letters[createdRandNum] };
+        element.metadata = { ...element.metadata, type: "closed" };
         letters.splice(createdRandNum, 1);
+
+        return element;
       });
-      return mcQ;
+
+      return addLetter;
     });
-    console.log(newShuffledArr);
-    const sortChoiceLetters = newShuffledArr.map((mcQ, i) => {
-      mcQ.answers.forEach((element, e) => {
+    const sortedChoiceLetters = newShuffledArr.map((mcQ, i) => {
+      mcQ.forEach((element, e) => {
         let letterOption = element.choiceLetter;
         switch (letterOption) {
           case "a)":
-            return mcQ.answers.move(e, 0);
+            return mcQ.move(e, 0);
 
           case "b)":
-            return mcQ.answers.move(e, 1);
+            return mcQ.move(e, 1);
 
           case "c)":
-            return mcQ.answers.move(e, 2);
+            return mcQ.move(e, 2);
 
           case "d)":
-            return mcQ.answers.move(e, 3);
+            return mcQ.move(e, 3);
 
           case "e)":
-            return mcQ.answers.move(e, 4);
+            return mcQ.move(e, 4);
 
           default:
             console.log("what went wrong");
@@ -220,10 +228,31 @@ const TestCard = () => {
       });
       return mcQ;
     });
-    return sortChoiceLetters;
+
+    let ansSheet = [];
+    console.log(sortedChoiceLetters);
+    sortedChoiceLetters.forEach((mcQ, i) => {
+      mcQ.forEach((item, i) => {
+        if (item.checked === true) {
+          ansSheet.push(item.choiceLetter);
+          console.log(ansSheet);
+        } else {
+          return;
+        }
+      });
+    });
+
+    const resultShuffle = { sortedChoiceLetters, ansSheet };
+    console.log(resultShuffle);
+    setShuffledData(resultShuffle);
   };
-  let result = shuffledTestData();
-  console.log(result);
+
+  const saveTestThanShuffle = () => {
+    setIsTestSaved(true);
+    setDidClickShuffle(true);
+  };
+  console.log("end");
+  console.log(testData);
   return (
     <div>
       <h1>Test Title</h1>
@@ -234,7 +263,8 @@ const TestCard = () => {
         handleSaveTest={handleSaveTest}
       />
       <AddMCCard handleClick={handleAddMCCard} />
-      <SaveTestButton toggleIsTestSaved={toggleIsTestSaved} />
+      <SaveTestButton changeSaveTest={changeSaveTest} />
+      <ShuffleSaveButton shuffle={saveTestThanShuffle} />
     </div>
   );
 };

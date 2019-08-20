@@ -1,17 +1,17 @@
 import React from "react";
 import { Row, Col, Button, Divider } from "antd";
 
-const SaveTestButton = ({ changeSaveTest }) => {
+const ShuffleSaveButton = ({ shuffle }) => {
   return (
     <Button
       type="primary"
       size="large"
       className="f4 lh-copy"
-      onClick={changeSaveTest}
+      onClick={shuffle}
     >
-      Save Test
+      Save & Shuffle Test
     </Button>
   );
 };
 
-export default SaveTestButton;
+export default ShuffleSaveButton;

@@ -16,7 +16,7 @@ const AnswerCard = ({
   useEffect(() => {
     if (isUpdateClicked) {
       updateComp(answer, isBoxChecked, ansId);
-      console.log(isBoxChecked);
+      console.log("11111");
     }
   }, [isUpdateClicked]);
 

@@ -19,7 +19,7 @@ const MCCard = ({
   const [answersComp, setAnswersComp] = useState(answers);
   const [isUpdateClicked, setIsUpdateClicked] = useState(false);
   const [MCCardState, setMCCardState] = useState("");
-
+  let tempAnswers = [];
   useEffect(() => {
     if (isTestSaved === true) {
       handleSaveTest(mcId, questionsComp, answersComp);
@@ -27,16 +27,9 @@ const MCCard = ({
   }, [isTestSaved]);
 
   const handleUpdateAns = (input, checkedInput, id) => {
-    const newArr = answersComp.map((item, i) => {
-      if (item.id == id) {
-        item.answer = input;
-        item.checked = checkedInput;
-        return item;
-      } else {
-        return item;
-      }
-    });
-    setAnswersComp(newArr);
+    let newObj = { id: id, answer: input, checked: checkedInput };
+    tempAnswers.push(newObj);
+    setAnswersComp(tempAnswers);
     setIsUpdateClicked(false);
     setMCCardState("");
   };
@@ -100,6 +93,7 @@ const MCCard = ({
   const goBack = () => {
     setMCCardState("");
   };
+  console.log(answersComp);
   if (MCCardState === "DELETING") {
     return (
       <DeleteCard
