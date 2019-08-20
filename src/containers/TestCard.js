@@ -7,6 +7,7 @@ import SaveTestButton from "../components/SaveTestButton";
 import ShuffleSaveButton from "../components/ShuffleSaveButton";
 import uuid from "uuid";
 import "array.prototype.move";
+import * as jsPDF from "jspdf";
 
 const TestCard = () => {
   const [fetchTest, setFetchTest] = useState([
@@ -28,20 +29,17 @@ const TestCard = () => {
         },
         {
           id: 4321,
-          answer:
-            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          answer: "quio",
           checked: false
         },
         {
           id: 4134,
-          answer:
-            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          answer: "quia et suscicto",
           checked: false
         },
         {
           id: 41114,
-          answer:
-            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          answer: "quia et suo",
           checked: false
         }
       ]
@@ -53,26 +51,22 @@ const TestCard = () => {
       answers: [
         {
           id: 652,
-          answer:
-            "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla",
+          answer: "est r",
           checked: true
         },
         {
           id: 41984,
-          answer:
-            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          answer: "quia et suscip",
           checked: false
         },
         {
           id: 459034,
-          answer:
-            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          answer: "quia et suscip",
           checked: false
         },
         {
           id: 41890634,
-          answer:
-            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          answer: "quia et suscipi",
           checked: false
         }
       ]
@@ -84,26 +78,22 @@ const TestCard = () => {
       answers: [
         {
           id: 654,
-          answer:
-            "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut",
+          answer: "et iusto sed quo iu",
           checked: false
         },
         {
           id: 41123134,
-          answer:
-            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          answer: "quia et suscip",
           checked: true
         },
         {
           id: 41010234,
-          answer:
-            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          answer: "quia et suscipitecto",
           checked: false
         },
         {
           id: 413822934,
-          answer:
-            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          answer: "quia et suscipi",
           checked: false
         }
       ]
@@ -115,14 +105,12 @@ const TestCard = () => {
       answers: [
         {
           id: 659,
-          answer:
-            "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit",
+          answer: "ullam et saep",
           checked: false
         },
         {
           id: 65999,
-          answer:
-            "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit",
+          answer: "ullam et sae",
           checked: true
         }
       ]
@@ -176,7 +164,6 @@ const TestCard = () => {
   };
 
   const shuffledTestData = () => {
-    console.log(testData);
     const newShuffledArr = testData.map((mcQ, i) => {
       let letters = ["a)", "b)", "c)", "d)", "e)"];
 
@@ -200,51 +187,86 @@ const TestCard = () => {
 
         return element;
       });
-
-      return addLetter;
+      mcQ = { ...mcQ, answers: addLetter };
+      return mcQ;
     });
+
     const sortedChoiceLetters = newShuffledArr.map((mcQ, i) => {
-      mcQ.forEach((element, e) => {
-        let letterOption = element.choiceLetter;
-        switch (letterOption) {
+      let newAnswerArr = [];
+
+      for (let i = 0; i < mcQ.answers.length; i++) {
+        newAnswerArr.push("null");
+      }
+      console.log("check");
+      mcQ.answers.forEach((element, e) => {
+        switch (element.choiceLetter) {
           case "a)":
-            return mcQ.move(e, 0);
+            return newAnswerArr.splice(0, 1, element);
 
           case "b)":
-            return mcQ.move(e, 1);
+            return newAnswerArr.splice(1, 1, element);
 
           case "c)":
-            return mcQ.move(e, 2);
+            return newAnswerArr.splice(2, 1, element);
 
           case "d)":
-            return mcQ.move(e, 3);
+            return newAnswerArr.splice(3, 1, element);
 
           case "e)":
-            return mcQ.move(e, 4);
+            return newAnswerArr.splice(4, 1, element);
 
           default:
             console.log("what went wrong");
         }
       });
+      mcQ = { ...mcQ, answers: newAnswerArr };
       return mcQ;
     });
-
-    let ansSheet = [];
     console.log(sortedChoiceLetters);
+    let ansSheet = [];
+
     sortedChoiceLetters.forEach((mcQ, i) => {
-      mcQ.forEach((item, i) => {
+      mcQ.answers.forEach((item, i) => {
         if (item.checked === true) {
           ansSheet.push(item.choiceLetter);
-          console.log(ansSheet);
         } else {
           return;
         }
       });
     });
 
-    const resultShuffle = { sortedChoiceLetters, ansSheet };
-    console.log(resultShuffle);
-    setShuffledData(resultShuffle);
+    console.log(sortedChoiceLetters);
+
+    //start building pdf
+    var doc = new jsPDF();
+
+    let x = 10;
+    let y = 10;
+    sortedChoiceLetters.forEach(element => {
+      y += 10;
+      doc.text(element.question, x, y);
+      y += 10;
+
+      element.answers.forEach(item => {
+        doc.text(item.choiceLetter, x, y);
+        x += 10;
+        doc.text(item.answer, x, y);
+        y += 10;
+        x -= 10;
+      });
+    });
+    console.log(ansSheet);
+    doc.addPage();
+    y = 10;
+    x = 10;
+    doc.text("Answer sheet", x, y);
+    y += 10;
+    ansSheet.forEach(element => {
+      doc.text(element, x, y);
+      y += 10;
+    });
+
+    doc.save("test.pdf");
   };
 
   const saveTestThanShuffle = () => {
