@@ -50,3 +50,28 @@ export const testJson = [
     ]
   }
 ];
+/*
+{
+	"testCard":
+	[
+		{
+	      "mcId": "1",
+	      "question":
+	        "sunt aut facere repellat provident wccaecati optio reprehenderit?",
+	      "answers": [
+	        {
+	          "id": "424",
+	          "answer": "quia et suscipit",
+	          "checked": "false"
+          },
+          {
+	          "id": "424",
+	          "answer": "quia et suscipit",
+	          "checked": "false"
+	        }
+	      ]
+	    }
+		
+	]
+}
+*/

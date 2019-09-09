@@ -1,8 +1,8 @@
 import React from "react";
 import { Row, Col, Button } from "antd";
 import { Link } from "react-router-dom";
-import gradStudent from "../images/academic-degree.png";
-import Nav from "./Nav";
+import gradStudent from "../../images/academic-degree.png";
+import Nav from "../Nav";
 
 const Homepage = () => (
   <div>

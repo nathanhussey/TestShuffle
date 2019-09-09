@@ -2,11 +2,11 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Homepage from "../components/Homepage";
+import Homepage from "../components/PreLogin/Homepage";
 // eslint-disable-next-line import/named
-import { SignUp } from "../components/Signup";
+import { SignUp } from "../components/PreLogin/Signup";
 // eslint-disable-next-line import/named
-import { LogIn } from "../components/LogIn";
+import { LogIn } from "../components/PreLogin/LogIn";
 import Dashboard from "./Dashboard";
 import TestCard from "./TestCard";
 
@@ -19,6 +19,7 @@ const App = () => (
         <Route exact path="/login" component={LogIn} />
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/testcard" component={TestCard} />
+        <Route path="/testcard/id" component={TestCard} />
       </Switch>
     </div>
   </Router>

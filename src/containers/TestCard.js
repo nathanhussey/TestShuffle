@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Divider } from "antd";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import ShowCardList from "../components/ShowCardList";
 import AddMCCard from "../components/AddMCCard";
 import SaveTestButton from "../components/SaveTestButton";
@@ -8,12 +8,13 @@ import ShuffleSaveButton from "../components/ShuffleSaveButton";
 import uuid from "uuid";
 import "array.prototype.move";
 import * as jsPDF from "jspdf";
+import axios from "axios";
 
 const TestCard = () => {
-  const [fetchTest, setFetchTest] = useState([
+  const [testTitle, setTestTitle] = useState("Test Title here");
+  const [testData, setTestData] = useState([
     {
-      userId: 1,
-      id: 1,
+      mcId: 1,
       question:
         "sunt aut facere repellat provident wccaecati optio reprehenderit?",
       answers: [
@@ -21,105 +22,16 @@ const TestCard = () => {
           id: 424,
           answer: "quia et suscipit",
           checked: false
-        },
-        {
-          id: 133,
-          answer: "um est autem sunt rem eveniet archi",
-          checked: true
-        },
-        {
-          id: 4321,
-          answer: "quio",
-          checked: false
-        },
-        {
-          id: 4134,
-          answer: "quia et suscicto",
-          checked: false
-        },
-        {
-          id: 41114,
-          answer: "quia et suo",
-          checked: false
-        }
-      ]
-    },
-    {
-      userId: 1,
-      id: 2,
-      question: "qui est esse?",
-      answers: [
-        {
-          id: 652,
-          answer: "est r",
-          checked: true
-        },
-        {
-          id: 41984,
-          answer: "quia et suscip",
-          checked: false
-        },
-        {
-          id: 459034,
-          answer: "quia et suscip",
-          checked: false
-        },
-        {
-          id: 41890634,
-          answer: "quia et suscipi",
-          checked: false
-        }
-      ]
-    },
-    {
-      userId: 1,
-      id: 3,
-      question: "ea molestias quasi exercitationem repellat qui ipsa sit aut?",
-      answers: [
-        {
-          id: 654,
-          answer: "et iusto sed quo iu",
-          checked: false
-        },
-        {
-          id: 41123134,
-          answer: "quia et suscip",
-          checked: true
-        },
-        {
-          id: 41010234,
-          answer: "quia et suscipitecto",
-          checked: false
-        },
-        {
-          id: 413822934,
-          answer: "quia et suscipi",
-          checked: false
-        }
-      ]
-    },
-    {
-      userId: 1,
-      id: 4,
-      question: "eum et est occaecati?",
-      answers: [
-        {
-          id: 659,
-          answer: "ullam et saep",
-          checked: false
-        },
-        {
-          id: 65999,
-          answer: "ullam et sae",
-          checked: true
         }
       ]
     }
   ]);
-  const [testData, setTestData] = useState(fetchTest);
   const [isTestSaved, setIsTestSaved] = useState(false);
   const [shuffledData, setShuffledData] = useState([]);
   const [didClickShuffle, setDidClickShuffle] = useState(false);
+  const [didClickSaveDash, setDidClickSaveDash] = useState(false);
+  const [editTitle, setEditTitle] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   let tempTest = [];
 
   useEffect(() => {
@@ -128,16 +40,43 @@ const TestCard = () => {
       shuffledTestData();
     }
   }, [testData]);
+
+  useEffect(() => {
+    console.log(testData);
+    if (didClickSaveDash === true) {
+      axios
+        .post(
+          "http://localhost:3001/testcard/create-new",
+          {
+            testTitle: testTitle,
+            testCard: testData
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + getToken()
+            }
+          }
+        )
+        .then(response => {
+          console.log(response);
+        })
+        .then(setRedirect(true));
+    }
+  }, [didClickSaveDash]);
+
+  const getToken = () => {
+    return localStorage.getItem("token");
+  };
   const handleAddMCCard = () => {
     const newMCCardId = [
       {
         userId: 1,
-        id: null,
+        mcId: null,
         question: "",
         answers: [{ id: null, answer: "", checked: false }]
       }
     ];
-    newMCCardId[0].id = uuid.v4();
+    newMCCardId[0].mcId = uuid.v4();
     newMCCardId[0].answers[0].id = uuid.v4();
     setTestData(testData.concat(newMCCardId));
   };
@@ -157,10 +96,11 @@ const TestCard = () => {
   };
 
   const handleSaveTest = (mcId, newQuestion, newAnswers) => {
-    let newObj = { id: mcId, question: newQuestion, answers: newAnswers };
+    let newObj = { mcId: mcId, question: newQuestion, answers: newAnswers };
     tempTest.push(newObj);
     setTestData(tempTest);
     setIsTestSaved(false);
+    setDidClickSaveDash(true);
   };
 
   const shuffledTestData = () => {
@@ -273,11 +213,68 @@ const TestCard = () => {
     setIsTestSaved(true);
     setDidClickShuffle(true);
   };
-  console.log("end");
+
+  const handleEditTitle = () => {
+    setEditTitle(true);
+  };
+
+  const handleTitleChange = e => {
+    setTestTitle(e.target.value);
+  };
+
+  const handleSaveTitle = () => {
+    setEditTitle(false);
+  };
+
+  if (redirect) {
+    return <Redirect to="/dashboard" />;
+  }
+
+  let titleContent;
+  if (editTitle) {
+    titleContent = (
+      <div>
+        <div class="flex">
+          <div class=" w-100 tc pa3 mr2">
+            <form>
+              <label>
+                <textarea
+                  type="text"
+                  value={testTitle}
+                  onChange={handleTitleChange}
+                  cols="100"
+                  rows="2"
+                />
+              </label>
+            </form>
+            <Button
+              onClick={handleSaveTitle}
+              type="primary"
+              size="large"
+              className="f4 lh-copy"
+            >
+              Update title
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  } else {
+    titleContent = (
+      <div className="flex">
+        <div className=" w-100 tc pa3 mr2">
+          <h1>{testTitle}</h1>
+          <span className="child bg-black-40 " onClick={handleEditTitle}>
+            Edit title
+          </span>
+        </div>
+      </div>
+    );
+  }
   console.log(testData);
   return (
     <div>
-      <h1>Test Title</h1>
+      {titleContent}
       <ShowCardList
         testData={testData}
         handleDeleteMCCard={handleDeleteMCCard}
@@ -291,10 +288,110 @@ const TestCard = () => {
   );
 };
 
-/*fetch("https://jsonplaceholder.typicode.com/posts")
-.then(response => response.json())
-.then(json => {
-  setiFetch_test(json);
-});
-}, []);*/
 export default TestCard;
+/*const [fetchTest, setFetchTest] = useState([
+    {
+      userId: 1,
+      mcId: 1,
+      question:
+        "sunt aut facere repellat provident wccaecati optio reprehenderit?",
+      answers: [
+        {
+          id: 424,
+          answer: "quia et suscipit",
+          checked: false
+        },
+        {
+          id: 133,
+          answer: "um est autem sunt rem eveniet archi",
+          checked: true
+        },
+        {
+          id: 4321,
+          answer: "quio",
+          checked: false
+        },
+        {
+          id: 4134,
+          answer: "quia et suscicto",
+          checked: false
+        },
+        {
+          id: 41114,
+          answer: "quia et suo",
+          checked: false
+        }
+      ]
+    },
+    {
+      userId: 1,
+      mcId: 2,
+      question: "qui est esse?",
+      answers: [
+        {
+          id: 652,
+          answer: "est r",
+          checked: true
+        },
+        {
+          id: 41984,
+          answer: "quia et suscip",
+          checked: false
+        },
+        {
+          id: 459034,
+          answer: "quia et suscip",
+          checked: false
+        },
+        {
+          id: 41890634,
+          answer: "quia et suscipi",
+          checked: false
+        }
+      ]
+    },
+    {
+      userId: 1,
+      mcId: 3,
+      question: "ea molestias quasi exercitationem repellat qui ipsa sit aut?",
+      answers: [
+        {
+          id: 654,
+          answer: "et iusto sed quo iu",
+          checked: false
+        },
+        {
+          id: 41123134,
+          answer: "quia et suscip",
+          checked: true
+        },
+        {
+          id: 41010234,
+          answer: "quia et suscipitecto",
+          checked: false
+        },
+        {
+          id: 413822934,
+          answer: "quia et suscipi",
+          checked: false
+        }
+      ]
+    },
+    {
+      userId: 1,
+      mcId: 4,
+      question: "eum et est occaecati?",
+      answers: [
+        {
+          id: 659,
+          answer: "ullam et saep",
+          checked: false
+        },
+        {
+          id: 65999,
+          answer: "ullam et sae",
+          checked: true
+        }
+      ]
+    }
+  ]);*/

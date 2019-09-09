@@ -12,8 +12,8 @@ const ShowCardList = ({
       {testData.map((info, i) => {
         return (
           <MCCard
-            key={testData[i].id}
-            mcId={testData[i].id}
+            key={testData[i].mcId}
+            mcId={testData[i].mcId}
             questions={testData[i].question}
             answers={testData[i].answers}
             handleDeleteMCCard={handleDeleteMCCard}

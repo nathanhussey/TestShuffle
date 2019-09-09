@@ -123,6 +123,7 @@ const MCCard = ({
                 xl={24}
                 className="bg-light-blue mt2 br3"
               >
+                <div>Question</div>
                 <QuestionCard
                   questionInput={questionsComp}
                   isUpdateClicked={isUpdateClicked}
@@ -139,6 +140,7 @@ const MCCard = ({
                 xl={24}
                 className="bg-light-blue"
               >
+                <div>Answers</div>
                 <AnswerList
                   answers={answersComp}
                   updateComp={handleUpdateAns}
@@ -183,6 +185,7 @@ const MCCard = ({
                 xl={24}
                 className="bg-light-blue mt2 mb4 br3"
               >
+                <div>Question</div>
                 {questionsComp}
               </Col>
             </Row>
@@ -195,6 +198,7 @@ const MCCard = ({
                 xl={24}
                 className="bg-light-blue"
               >
+                <div>Answers</div>
                 <AnswerListStatic answers={answersComp} />
               </Col>
               <Col xs={24} sm={24} md={24} lg={24} xl={24} offset={22}>
