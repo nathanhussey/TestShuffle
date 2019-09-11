@@ -5,7 +5,13 @@ const LoadTitles = ({ titles }) => {
   return (
     <div>
       {titles.map((info, i) => {
-        return <TitleCard key={titles[i]._id} title={titles[i].testTitle} />;
+        return (
+          <TitleCard
+            key={titles[i]._id}
+            testCardId={titles[i]._id}
+            title={titles[i].testTitle}
+          />
+        );
       })}
     </div>
   );

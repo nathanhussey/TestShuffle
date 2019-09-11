@@ -93,7 +93,7 @@ const MCCard = ({
   const goBack = () => {
     setMCCardState("");
   };
-  console.log(answersComp);
+
   if (MCCardState === "DELETING") {
     return (
       <DeleteCard

@@ -9,6 +9,7 @@ import { SignUp } from "../components/PreLogin/Signup";
 import { LogIn } from "../components/PreLogin/LogIn";
 import Dashboard from "./Dashboard";
 import TestCard from "./TestCard";
+import UpdateTestCard from "../components/UpdateTestCard";
 
 const App = () => (
   <Router>
@@ -19,7 +20,7 @@ const App = () => (
         <Route exact path="/login" component={LogIn} />
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/testcard" component={TestCard} />
-        <Route path="/testcard/id" component={TestCard} />
+        <Route path="/testcard/:id" component={UpdateTestCard} />
       </Switch>
     </div>
   </Router>

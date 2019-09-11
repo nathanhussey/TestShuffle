@@ -37,12 +37,28 @@ const TestCard = () => {
   useEffect(() => {
     if (didClickShuffle === true) {
       console.log(testData);
-      shuffledTestData();
+      axios
+        .post(
+          "http://localhost:3001/testcard/create-new",
+          {
+            testTitle: testTitle,
+            testCard: testData
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + getToken()
+            }
+          }
+        )
+        .then(response => {
+          console.log(response);
+        })
+        .then(() => shuffledTestData())
+        .then(setRedirect(true));
     }
   }, [testData]);
 
   useEffect(() => {
-    console.log(testData);
     if (didClickSaveDash === true) {
       axios
         .post(
@@ -62,7 +78,7 @@ const TestCard = () => {
         })
         .then(setRedirect(true));
     }
-  }, [didClickSaveDash]);
+  }, [testData]);
 
   const getToken = () => {
     return localStorage.getItem("token");
@@ -70,7 +86,6 @@ const TestCard = () => {
   const handleAddMCCard = () => {
     const newMCCardId = [
       {
-        userId: 1,
         mcId: null,
         question: "",
         answers: [{ id: null, answer: "", checked: false }]
@@ -83,16 +98,16 @@ const TestCard = () => {
 
   const handleDeleteMCCard = mcId => {
     testData.map((card, i) => {
-      if (card.id === mcId) {
+      if (card.mcId === mcId) {
         testData.splice(i, 1);
       }
     });
-    console.log(testData);
     setTestData([...testData]);
   };
 
   const changeSaveTest = () => {
     setIsTestSaved(true);
+    setDidClickSaveDash(true);
   };
 
   const handleSaveTest = (mcId, newQuestion, newAnswers) => {
@@ -100,7 +115,6 @@ const TestCard = () => {
     tempTest.push(newObj);
     setTestData(tempTest);
     setIsTestSaved(false);
-    setDidClickSaveDash(true);
   };
 
   const shuffledTestData = () => {
@@ -131,6 +145,7 @@ const TestCard = () => {
       return mcQ;
     });
 
+    //sorting answers based on letter assigned to it
     const sortedChoiceLetters = newShuffledArr.map((mcQ, i) => {
       let newAnswerArr = [];
 
@@ -162,19 +177,20 @@ const TestCard = () => {
       mcQ = { ...mcQ, answers: newAnswerArr };
       return mcQ;
     });
-    console.log(sortedChoiceLetters);
-    let ansSheet = [];
 
+    // creating answer sheet
+    let ansSheet = [];
     sortedChoiceLetters.forEach((mcQ, i) => {
+      let questionNumber = i + 1;
+      mcQ.quesNum = `${questionNumber}.`;
       mcQ.answers.forEach((item, i) => {
         if (item.checked === true) {
-          ansSheet.push(item.choiceLetter);
+          ansSheet.push(`${mcQ.quesNum} ${item.choiceLetter}`);
         } else {
           return;
         }
       });
     });
-
     console.log(sortedChoiceLetters);
 
     //start building pdf
@@ -184,8 +200,11 @@ const TestCard = () => {
     let y = 10;
     sortedChoiceLetters.forEach(element => {
       y += 10;
+      doc.text(element.quesNum, x, y);
+      x += 7;
       doc.text(element.question, x, y);
       y += 10;
+      x -= 7;
 
       element.answers.forEach(item => {
         doc.text(item.choiceLetter, x, y);
@@ -234,8 +253,8 @@ const TestCard = () => {
   if (editTitle) {
     titleContent = (
       <div>
-        <div class="flex">
-          <div class=" w-100 tc pa3 mr2">
+        <div className="flex">
+          <div className=" w-100 tc pa3 mr2">
             <form>
               <label>
                 <textarea
@@ -271,7 +290,6 @@ const TestCard = () => {
       </div>
     );
   }
-  console.log(testData);
   return (
     <div>
       {titleContent}
