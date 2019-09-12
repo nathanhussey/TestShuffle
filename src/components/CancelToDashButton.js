@@ -1,17 +1,17 @@
 import React from "react";
 import { Row, Col, Button, Divider } from "antd";
 
-const SaveTestButton = ({ changeSaveTest }) => {
+const CancelToDashButton = ({ handleCancelToDash }) => {
   return (
     <Button
       type="primary"
       size="large"
       className="f4 lh-copy ma2"
-      onClick={changeSaveTest}
+      onClick={handleCancelToDash}
     >
-      Save Test
+      Cancel
     </Button>
   );
 };
 
-export default SaveTestButton;
+export default CancelToDashButton;

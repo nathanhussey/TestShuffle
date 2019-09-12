@@ -5,6 +5,11 @@ import ShowCardList from "./ShowCardList";
 import AddMCCard from "./AddMCCard";
 import UpdateTestDashButton from "./UpdateTestDashButton";
 import ShuffleSaveButton from "./ShuffleSaveButton";
+import CancelToDashButton from "./CancelToDashButton";
+import ConfirmCancelTest from "./ConfirmCancelTest";
+import ConfirmDeletingTest from "./ConfirmDeletingTest";
+import DeleteTest from "./DeleteTest";
+
 import uuid from "uuid";
 import "array.prototype.move";
 import * as jsPDF from "jspdf";
@@ -19,6 +24,8 @@ const UpdateTestCard = ({ match }) => {
   const [didClickUpdateDash, setDidClickUpdateDash] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const [cancellingTest, setCancellingTest] = useState(false);
+  const [deletingTest, setDeletingTest] = useState(false);
   let tempTest = [];
   useEffect(() => {
     console.log(match);
@@ -44,7 +51,7 @@ const UpdateTestCard = ({ match }) => {
       console.log(testData);
       axios
         .put(
-          `http://localhost:3001/testcard/edit/${match.params.id}/saved`,
+          `http://localhost:3001/testcard/edit/${match.params.id}`,
           {
             testTitle: testTitle,
             testCard: testData
@@ -85,6 +92,19 @@ const UpdateTestCard = ({ match }) => {
         .then(setRedirect(true));
     }
   }, [testData]);
+
+  const handleDeleteTest = () => {
+    axios
+      .delete(`http://localhost:3001/testcard/edit/${match.params.id}`, {
+        headers: {
+          Authorization: "Bearer " + getToken()
+        }
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .then(setRedirect(true));
+  };
 
   const getToken = () => {
     return localStorage.getItem("token");
@@ -160,7 +180,6 @@ const UpdateTestCard = ({ match }) => {
       for (let i = 0; i < mcQ.answers.length; i++) {
         newAnswerArr.push("null");
       }
-      console.log("check");
       mcQ.answers.forEach((element, e) => {
         switch (element.choiceLetter) {
           case "a)":
@@ -199,22 +218,32 @@ const UpdateTestCard = ({ match }) => {
         }
       });
     });
-    console.log(sortedChoiceLetters);
 
     //start building pdf
     var doc = new jsPDF();
+    let pageHeight = doc.internal.pageSize.height - 20;
 
     let x = 10;
-    let y = 10;
+    let y = 20;
+    doc.text(testTitle, x, y);
+    y += 10;
     sortedChoiceLetters.forEach(element => {
+      if (y >= pageHeight) {
+        doc.addPage();
+        y = 10;
+      }
       y += 10;
       doc.text(element.quesNum, x, y);
-      x += 7;
+      x += 9;
       doc.text(element.question, x, y);
       y += 10;
-      x -= 7;
+      x -= 9;
 
       element.answers.forEach(item => {
+        if (y >= pageHeight) {
+          doc.addPage();
+          y = 20;
+        }
         doc.text(item.choiceLetter, x, y);
         x += 10;
         doc.text(item.answer, x, y);
@@ -253,11 +282,45 @@ const UpdateTestCard = ({ match }) => {
     setEditTitle(false);
   };
 
+  const handleCancelToDash = () => {
+    setCancellingTest(true);
+  };
+
+  const cancelDelete = () => {
+    setCancellingTest(false);
+    setDeletingTest(false);
+  };
+  const handleRedirect = () => {
+    setCancellingTest(false);
+    setRedirect(true);
+  };
+
   if (redirect) {
     return <Redirect to="/dashboard" />;
   }
 
-  console.log("update test Component");
+  if (cancellingTest) {
+    return (
+      <ConfirmCancelTest
+        handleRedirect={handleRedirect}
+        cancelDelete={cancelDelete}
+      />
+    );
+  }
+
+  const confirmDeletingTest = () => {
+    setDeletingTest(true);
+  };
+
+  if (deletingTest) {
+    return (
+      <ConfirmDeletingTest
+        handleDeleteTest={handleDeleteTest}
+        cancelDelete={cancelDelete}
+      />
+    );
+  }
+
   let titleContent;
   if (editTitle) {
     titleContent = (
@@ -312,114 +375,10 @@ const UpdateTestCard = ({ match }) => {
       <AddMCCard handleClick={handleAddMCCard} />
       <UpdateTestDashButton changeSaveTest={changeSaveTest} />
       <ShuffleSaveButton shuffle={saveTestThanShuffle} />
+      <CancelToDashButton handleCancelToDash={handleCancelToDash} />
+      <DeleteTest confirmDeletingTest={confirmDeletingTest} />
     </div>
   );
 };
 
 export default UpdateTestCard;
-/*const [fetchTest, setFetchTest] = useState([
-    {
-      userId: 1,
-      mcId: 1,
-      question:
-        "sunt aut facere repellat provident wccaecati optio reprehenderit?",
-      answers: [
-        {
-          id: 424,
-          answer: "quia et suscipit",
-          checked: false
-        },
-        {
-          id: 133,
-          answer: "um est autem sunt rem eveniet archi",
-          checked: true
-        },
-        {
-          id: 4321,
-          answer: "quio",
-          checked: false
-        },
-        {
-          id: 4134,
-          answer: "quia et suscicto",
-          checked: false
-        },
-        {
-          id: 41114,
-          answer: "quia et suo",
-          checked: false
-        }
-      ]
-    },
-    {
-      userId: 1,
-      mcId: 2,
-      question: "qui est esse?",
-      answers: [
-        {
-          id: 652,
-          answer: "est r",
-          checked: true
-        },
-        {
-          id: 41984,
-          answer: "quia et suscip",
-          checked: false
-        },
-        {
-          id: 459034,
-          answer: "quia et suscip",
-          checked: false
-        },
-        {
-          id: 41890634,
-          answer: "quia et suscipi",
-          checked: false
-        }
-      ]
-    },
-    {
-      userId: 1,
-      mcId: 3,
-      question: "ea molestias quasi exercitationem repellat qui ipsa sit aut?",
-      answers: [
-        {
-          id: 654,
-          answer: "et iusto sed quo iu",
-          checked: false
-        },
-        {
-          id: 41123134,
-          answer: "quia et suscip",
-          checked: true
-        },
-        {
-          id: 41010234,
-          answer: "quia et suscipitecto",
-          checked: false
-        },
-        {
-          id: 413822934,
-          answer: "quia et suscipi",
-          checked: false
-        }
-      ]
-    },
-    {
-      userId: 1,
-      mcId: 4,
-      question: "eum et est occaecati?",
-      answers: [
-        {
-          id: 659,
-          answer: "ullam et saep",
-          checked: false
-        },
-        {
-          id: 65999,
-          answer: "ullam et sae",
-          checked: true
-        }
-      ]
-    }
-  ]);*/

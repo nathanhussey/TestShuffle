@@ -5,6 +5,8 @@ import ShowCardList from "../components/ShowCardList";
 import AddMCCard from "../components/AddMCCard";
 import SaveTestButton from "../components/SaveTestButton";
 import ShuffleSaveButton from "../components/ShuffleSaveButton";
+import CancelToDashButton from "../components/CancelToDashButton";
+import ConfirmCancelTest from "../components/ConfirmCancelTest";
 import uuid from "uuid";
 import "array.prototype.move";
 import * as jsPDF from "jspdf";
@@ -32,6 +34,7 @@ const TestCard = () => {
   const [didClickSaveDash, setDidClickSaveDash] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const [cancellingTest, setCancellingTest] = useState(false);
   let tempTest = [];
 
   useEffect(() => {
@@ -245,8 +248,29 @@ const TestCard = () => {
     setEditTitle(false);
   };
 
+  const handleCancelToDash = () => {
+    setCancellingTest(true);
+  };
+
+  const cancelDelete = () => {
+    setCancellingTest(false);
+  };
+  const handleRedirect = () => {
+    setCancellingTest(false);
+    setRedirect(true);
+  };
+
   if (redirect) {
     return <Redirect to="/dashboard" />;
+  }
+
+  if (cancellingTest) {
+    return (
+      <ConfirmCancelTest
+        handleRedirect={handleRedirect}
+        cancelDelete={cancelDelete}
+      />
+    );
   }
 
   let titleContent;
@@ -302,6 +326,7 @@ const TestCard = () => {
       <AddMCCard handleClick={handleAddMCCard} />
       <SaveTestButton changeSaveTest={changeSaveTest} />
       <ShuffleSaveButton shuffle={saveTestThanShuffle} />
+      <CancelToDashButton handleCancelToDash={handleCancelToDash} />
     </div>
   );
 };
