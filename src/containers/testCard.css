@@ -1,4 +1,4 @@
-.page-margins {
+.pages-margins {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -12,6 +12,17 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 101em;
+}
+
+.add-mc-margins {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 2em;
   margin-right: auto;
   margin-left: auto;
   max-width: 101em;

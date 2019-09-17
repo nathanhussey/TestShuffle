@@ -39,22 +39,27 @@ const DemoTest = () => {
   const [cancellingTest, setCancellingTest] = useState(false);
   let tempTest = [];
 
+  //checks if user clicked shuffle test
   useEffect(() => {
     if (didClickShuffle === true) {
       shuffledTestData();
-      setRedirect(true);
     }
   }, [testData]);
 
+  // checks if user clicked 'save to dashboard'
+  // redirects user to dashboard
   useEffect(() => {
     if (didClickSaveDash === true) {
       setRedirect(true);
     }
   }, [testData]);
 
+  // gets the auth 'token' from local storage
   const getToken = () => {
     return localStorage.getItem("token");
   };
+
+  // adds new multiple choice question to test
   const handleAddMCCard = () => {
     const newMCCardId = [
       {
@@ -68,6 +73,7 @@ const DemoTest = () => {
     setTestData(testData.concat(newMCCardId));
   };
 
+  //deletes multiple choice question from test
   const handleDeleteMCCard = mcId => {
     testData.map((card, i) => {
       if (card.mcId === mcId) {
@@ -77,11 +83,15 @@ const DemoTest = () => {
     setTestData([...testData]);
   };
 
+  //causes tests MCCard component to send updated data to testCard component
+  // In additon triggers useeffect to save data to database and redirects to dashboard
   const changeSaveTest = () => {
     setIsTestSaved(true);
     setDidClickSaveDash(true);
   };
 
+  // responsible updating testCard test data with updated data from MCCard
+  //this function will get new data from all MCCards gather them in an array and update testCard test data
   const handleSaveTest = (mcId, newQuestion, newAnswers) => {
     let newObj = { mcId: mcId, question: newQuestion, answers: newAnswers };
     tempTest.push(newObj);
@@ -89,7 +99,9 @@ const DemoTest = () => {
     setIsTestSaved(false);
   };
 
+  // shuffles data, prepares data from pdf than creates pdf for download
   const shuffledTestData = () => {
+    //randomly assigning each answer a letter
     const newShuffledArr = testData.map((mcQ, i) => {
       let letters = ["a)", "b)", "c)", "d)", "e)"];
 
@@ -107,8 +119,11 @@ const DemoTest = () => {
           }
         };
         let createdRandNum = randfunc();
+        // creates a new property called choiceLetter for each answer
+        // and assigns random letter to that property
         element = { ...element, choiceLetter: letters[createdRandNum] };
         element.metadata = { ...element.metadata, type: "closed" };
+        // remove assigned letter from array of available letters
         letters.splice(createdRandNum, 1);
 
         return element;
@@ -124,7 +139,6 @@ const DemoTest = () => {
       for (let i = 0; i < mcQ.answers.length; i++) {
         newAnswerArr.push("null");
       }
-      console.log("check");
       mcQ.answers.forEach((element, e) => {
         switch (element.choiceLetter) {
           case "a)":
@@ -143,7 +157,7 @@ const DemoTest = () => {
             return newAnswerArr.splice(4, 1, element);
 
           default:
-            console.log("what went wrong");
+            console.log("what went wrong in sorting");
         }
       });
       mcQ = { ...mcQ, answers: newAnswerArr };
@@ -163,7 +177,6 @@ const DemoTest = () => {
         }
       });
     });
-    console.log(sortedChoiceLetters);
 
     //start building pdf
     var doc = new jsPDF();
@@ -201,7 +214,7 @@ const DemoTest = () => {
         x -= 10;
       });
     });
-    console.log(ansSheet);
+
     doc.addPage();
     y = 10;
     x = 10;
@@ -215,6 +228,7 @@ const DemoTest = () => {
     doc.save("test.pdf");
   };
 
+  //gets update MCCArd data and triggers Effect to save and shuffle test
   const saveTestThanShuffle = () => {
     setIsTestSaved(true);
     setDidClickShuffle(true);
@@ -259,6 +273,7 @@ const DemoTest = () => {
     );
   }
 
+  // edit and display test title
   let titleContent;
   if (editTitle) {
     titleContent = (
@@ -308,14 +323,23 @@ const DemoTest = () => {
       </div>
     );
   }
+  //display test
   return (
     <div>
       {titleContent}
       <div className="intruction-margins">
+        <h1 className="red">
+          This is for Demo purposes only info will not be save. Sign up or login
+          to save data{" "}
+        </h1>
+      </div>
+      <div className="intruction-margins">
         <h2>Instructions</h2>
       </div>
       <div className="intruction-margins">
-        <h3>Only add 5 answers to a question (letters "a"to "e") </h3>
+        <h3 className="red">
+          Only add 5 answers to a question (letters "a" to "e"){" "}
+        </h3>
       </div>
       <div className="intruction-margins">
         <h3>Do not forget - Checkmark correct answers</h3>
@@ -330,8 +354,11 @@ const DemoTest = () => {
         isTestSaved={isTestSaved}
         handleSaveTest={handleSaveTest}
       />
-      <AddMCCard handleClick={handleAddMCCard} />
-      <div className="page-margins">
+      <div className="add-mc-margins ">
+        <AddMCCard handleClick={handleAddMCCard} />
+      </div>
+
+      <div className="pages-margins ">
         <SaveTestButton changeSaveTest={changeSaveTest} />
 
         <ShuffleSaveButton shuffle={saveTestThanShuffle} />

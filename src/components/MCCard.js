@@ -6,6 +6,7 @@ import QuestionCard from "./QuestionCard";
 import DeleteCard from "./DeleteCard";
 import AnswerListStatic from "./AnswerListStatic";
 import Item from "antd/lib/list/Item";
+import "../containers/testCard.css";
 
 const MCCard = ({
   questions,
@@ -105,17 +106,29 @@ const MCCard = ({
   } else if (MCCardState === "EDITMODE") {
     return (
       <div>
-        <Row type="flex" justify="center" align="middle">
+        <Row
+          type="flex"
+          justify="start"
+          align="middle"
+          className="intruction-margins"
+        >
           <Col
             xs={24}
             sm={24}
-            md={20}
-            lg={20}
-            xl={20}
+            md={24}
+            lg={24}
+            xl={24}
             className="shadow-1 pa3 mt3 br3"
           >
             <Row>
-              <Col xs={24} sm={24} md={24} lg={24} xl={24} className=" mt2 br3">
+              <Col
+                xs={24}
+                sm={24}
+                md={24}
+                lg={24}
+                xl={24}
+                className=" mt2 mb4 br3"
+              >
                 <div>Question</div>
                 <QuestionCard
                   questionInput={questionsComp}
@@ -142,7 +155,7 @@ const MCCard = ({
             </Row>
             <Row type="flex" justify="start" align="middle">
               <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                <Button onClick={handleUpdateButton}>Update</Button>
+                <Button onClick={handleUpdateButton}>Save</Button>
                 <Button onClick={handleDelete}>Delete Question</Button>
               </Col>
             </Row>
@@ -152,8 +165,13 @@ const MCCard = ({
     );
   } else {
     return (
-      <div className=" link  hide-child br2 cover">
-        <Row type="flex" justify="center" align="middle">
+      <div className=" link  hide-child br2 cover ">
+        <Row
+          type="flex"
+          justify="start"
+          align="middle"
+          className="intruction-margins"
+        >
           <Col
             xs={24}
             sm={24}

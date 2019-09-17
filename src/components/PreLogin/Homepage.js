@@ -119,7 +119,3 @@ const Homepage = () => (
   </div>
 );
 export default Homepage;
-
-//<Col xs={24} sm={24} md={12} lg={12} xl={6} className="">
-//<img src={teacher} alt="teacher" className="landing-page" />
-//</Col>

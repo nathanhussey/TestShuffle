@@ -361,7 +361,9 @@ const TestCard = () => {
         <h2>Instructions</h2>
       </div>
       <div className="intruction-margins">
-        <h3>Only add 5 answers to a question (letters "a" to "e") </h3>
+        <h3 className="red">
+          Only add 5 answers to a question (letters "a" to "e"){" "}
+        </h3>
       </div>
       <div className="intruction-margins">
         <h3>Do not forget - Checkmark correct answers</h3>
@@ -375,7 +377,9 @@ const TestCard = () => {
         isTestSaved={isTestSaved}
         handleSaveTest={handleSaveTest}
       />
-      <AddMCCard handleClick={handleAddMCCard} />
+      <div className="add-mc-margins ">
+        <AddMCCard handleClick={handleAddMCCard} />
+      </div>
       <div className="page-margins">
         <SaveTestButton changeSaveTest={changeSaveTest} />
 
