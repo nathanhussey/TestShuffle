@@ -6,7 +6,7 @@ const CancelToDashButton = ({ handleCancelToDash }) => {
     <Button
       type="primary"
       size="large"
-      className="f4 lh-copy ma2"
+      className="f4 lh-copy mr2"
       onClick={handleCancelToDash}
     >
       Cancel

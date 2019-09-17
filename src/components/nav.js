@@ -4,38 +4,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Button } from "antd";
+import "./Nav.css";
+import logo from "../images/logo2.png";
 
 const Nav = () => {
   return (
     <div>
-      <Row type="flex" justify="start" className="bg-light-blue pa4">
-        <Col span={2}>
-          <Button type="primary">
-            <Link to="/">Logo</Link>
-          </Button>
-        </Col>
-        <Col span={2} offset={16}>
-          <Button type="primary">
+      <div className=" nav-margins">
+        <div>
+          <Link to="/">
+            <img src={logo} className="logo"></img>
+          </Link>
+        </div>
+
+        <div>
+          <Button type="primary" className=" mt4">
             <Link to="/signup">Sign Up</Link>
           </Button>
-        </Col>
-        <Col span={2}>
-          <Button type="link">
-            <Link to="/testcard">TestCard</Link>
-          </Button>
-        </Col>
-        <Col span={2}>
-          <Button type="link">
-            <Link to="/dashboard">Dashboard</Link>
-          </Button>
-        </Col>
-        <Col span={2}>
-          <Button type="link">
+
+          <Button type="link" className="mt4">
             <Link to="/login">Log In</Link>
           </Button>
-        </Col>
-      </Row>
-      <Row />
+        </div>
+      </div>
     </div>
 
     // eslint-disable-next-line no-tabs

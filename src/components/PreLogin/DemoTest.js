@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Divider } from "antd";
 import { Link, Redirect } from "react-router-dom";
-import ShowCardList from "../components/ShowCardList";
-import AddMCCard from "../components/AddMCCard";
-import SaveTestButton from "../components/SaveTestButton";
-import ShuffleSaveButton from "../components/ShuffleSaveButton";
-import CancelToDashButton from "../components/CancelToDashButton";
-import ConfirmCancelTest from "../components/ConfirmCancelTest";
-import "./testCard.css";
+import ShowCardList from "../ShowCardList";
+import AddMCCard from "../AddMCCard";
+import SaveTestButton from "../SaveTestButton";
+import ShuffleSaveButton from "../ShuffleSaveButton";
+import CancelToDashButton from "../CancelToDashButton";
+import ConfirmCancelTest from "../ConfirmCancelTest";
+import "../../containers/testCard.css";
 import uuid from "uuid";
 import "array.prototype.move";
 import * as jsPDF from "jspdf";
 import axios from "axios";
 
-const TestCard = () => {
+const DemoTest = () => {
   const [testTitle, setTestTitle] = useState("Test Title here");
   const [testData, setTestData] = useState([
     {
       mcId: 1,
-      question: "Enter question here",
+      question:
+        "sunt aut facere repellat provident wccaecati optio reprehenderit?",
       answers: [
         {
           id: 424,
-          answer: "Enter answer here",
+          answer: "quia et suscipit",
           checked: false
         }
       ]
@@ -40,61 +41,14 @@ const TestCard = () => {
 
   useEffect(() => {
     if (didClickShuffle === true) {
-      console.log(testData);
-      axios
-        .post(
-          "http://localhost:3001/testcard/create-new",
-          {
-            testTitle: testTitle,
-            testCard: testData
-          },
-          {
-            headers: {
-              Authorization: "Bearer " + getToken()
-            }
-          }
-        )
-        .then(
-          response => {
-            console.log(response);
-          },
-          err => {
-            if (err.response.data === "invalid token") {
-              setRedirectToLogin(true);
-            }
-          }
-        )
-        .then(() => shuffledTestData())
-        .then(setRedirect(true));
+      shuffledTestData();
+      setRedirect(true);
     }
   }, [testData]);
 
   useEffect(() => {
     if (didClickSaveDash === true) {
-      axios
-        .post(
-          "http://localhost:3001/testcard/create-new",
-          {
-            testTitle: testTitle,
-            testCard: testData
-          },
-          {
-            headers: {
-              Authorization: "Bearer " + getToken()
-            }
-          }
-        )
-        .then(
-          response => {
-            console.log(response);
-          },
-          err => {
-            if (err.response.data === "invalid token") {
-              setRedirectToLogin(true);
-            }
-          }
-        )
-        .then(setRedirect(true));
+      setRedirect(true);
     }
   }, [testData]);
 
@@ -361,7 +315,7 @@ const TestCard = () => {
         <h2>Instructions</h2>
       </div>
       <div className="intruction-margins">
-        <h3>Only add 5 answers to a question (letters "a" to "e") </h3>
+        <h3>Only add 5 answers to a question (letters "a"to "e") </h3>
       </div>
       <div className="intruction-margins">
         <h3>Do not forget - Checkmark correct answers</h3>
@@ -369,6 +323,7 @@ const TestCard = () => {
       <div className="intruction-margins">
         <h3>Questions will be automatically numbered in pdf</h3>
       </div>
+
       <ShowCardList
         testData={testData}
         handleDeleteMCCard={handleDeleteMCCard}
@@ -387,4 +342,4 @@ const TestCard = () => {
   );
 };
 
-export default TestCard;
+export default DemoTest;

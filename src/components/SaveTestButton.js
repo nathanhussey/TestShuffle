@@ -6,10 +6,10 @@ const SaveTestButton = ({ changeSaveTest }) => {
     <Button
       type="primary"
       size="large"
-      className="f4 lh-copy ma2"
+      className="f4 lh-copy mr2"
       onClick={changeSaveTest}
     >
-      Save Test
+      Save Test & Go to Dashboard
     </Button>
   );
 };

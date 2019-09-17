@@ -6,10 +6,10 @@ const ShuffleSaveButton = ({ shuffle }) => {
     <Button
       type="primary"
       size="large"
-      className="f4 lh-copy"
+      className="f4 lh-copy mr2"
       onClick={shuffle}
     >
-      Save & Shuffle Test
+      Save, Shuffle & Download Test
     </Button>
   );
 };

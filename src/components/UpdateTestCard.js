@@ -14,6 +14,7 @@ import uuid from "uuid";
 import "array.prototype.move";
 import * as jsPDF from "jspdf";
 import axios from "axios";
+import "../containers/testCard.css";
 
 const UpdateTestCard = ({ match }) => {
   const [testTitle, setTestTitle] = useState("");
@@ -24,6 +25,7 @@ const UpdateTestCard = ({ match }) => {
   const [didClickUpdateDash, setDidClickUpdateDash] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const [redirectToLogin, setRedirectToLogin] = useState(false);
   const [cancellingTest, setCancellingTest] = useState(false);
   const [deletingTest, setDeletingTest] = useState(false);
   let tempTest = [];
@@ -42,6 +44,9 @@ const UpdateTestCard = ({ match }) => {
         },
         err => {
           console.log(err.response);
+          if (err.response.data === "invalid token") {
+            setRedirectToLogin(true);
+          }
         }
       );
   }, []);
@@ -62,9 +67,17 @@ const UpdateTestCard = ({ match }) => {
             }
           }
         )
-        .then(response => {
-          console.log(response);
-        })
+        .then(
+          response => {
+            console.log(response);
+          },
+          err => {
+            console.log(err.response);
+            if (err.response.data === "invalid token") {
+              setRedirectToLogin(true);
+            }
+          }
+        )
         .then(() => {
           shuffledTestData();
         });
@@ -204,7 +217,8 @@ const UpdateTestCard = ({ match }) => {
       mcQ = { ...mcQ, answers: newAnswerArr };
       return mcQ;
     });
-
+    //setting didClickeShuffle to false to stop additional shuffle on exit
+    setDidClickShuffle(false);
     // creating answer sheet
     let ansSheet = [];
     sortedChoiceLetters.forEach((mcQ, i) => {
@@ -225,8 +239,9 @@ const UpdateTestCard = ({ match }) => {
 
     let x = 10;
     let y = 20;
-    doc.text(testTitle, x, y);
-    y += 10;
+    let splitTitle = doc.splitTextToSize(testTitle, 180);
+    doc.text(splitTitle, x, y);
+    y += splitTitle.length * 8;
     sortedChoiceLetters.forEach(element => {
       if (y >= pageHeight) {
         doc.addPage();
@@ -235,8 +250,10 @@ const UpdateTestCard = ({ match }) => {
       y += 10;
       doc.text(element.quesNum, x, y);
       x += 9;
-      doc.text(element.question, x, y);
-      y += 10;
+      let splitQuestion = doc.splitTextToSize(element.question, 180);
+      doc.text(splitQuestion, x, y);
+      y += splitQuestion.length * 8;
+      y += 4;
       x -= 9;
 
       element.answers.forEach(item => {
@@ -244,10 +261,12 @@ const UpdateTestCard = ({ match }) => {
           doc.addPage();
           y = 20;
         }
+        console.log(item.choiceLetter);
         doc.text(item.choiceLetter, x, y);
         x += 10;
-        doc.text(item.answer, x, y);
-        y += 10;
+        let splitAnswer = doc.splitTextToSize(item.answer, 180);
+        doc.text(splitAnswer, x, y);
+        y += splitAnswer.length * 8;
         x -= 10;
       });
     });
@@ -294,6 +313,10 @@ const UpdateTestCard = ({ match }) => {
     setCancellingTest(false);
     setRedirect(true);
   };
+
+  if (redirectToLogin) {
+    return <Redirect to="/login" />;
+  }
 
   if (redirect) {
     return <Redirect to="/dashboard" />;
@@ -355,7 +378,15 @@ const UpdateTestCard = ({ match }) => {
       <div className="flex">
         <div className=" w-100 tc pa3 mr2">
           <h1>{testTitle}</h1>
-          <span className="child bg-black-40 " onClick={handleEditTitle}>
+          <span
+            className="child  pt1 pb1 pr2 pl2 ma1 mt2 br2"
+            style={{
+              cursor: "pointer",
+              backgroundColor: "#4285f4",
+              color: "white"
+            }}
+            onClick={handleEditTitle}
+          >
             Edit title
           </span>
         </div>
@@ -366,6 +397,18 @@ const UpdateTestCard = ({ match }) => {
   return (
     <div>
       {titleContent}
+      <div className="intruction-margins">
+        <h2>Instructions</h2>
+      </div>
+      <div className="intruction-margins">
+        <h3>Only add 5 answers to a question (letters "a"to "e") </h3>
+      </div>
+      <div className="intruction-margins">
+        <h3>Do not forget - Checkmark correct answers</h3>
+      </div>
+      <div className="intruction-margins">
+        <h3>Questions will be automatically numbered in pdf</h3>
+      </div>
       <ShowCardList
         testData={testData}
         handleDeleteMCCard={handleDeleteMCCard}
@@ -373,10 +416,12 @@ const UpdateTestCard = ({ match }) => {
         handleSaveTest={handleSaveTest}
       />
       <AddMCCard handleClick={handleAddMCCard} />
-      <UpdateTestDashButton changeSaveTest={changeSaveTest} />
-      <ShuffleSaveButton shuffle={saveTestThanShuffle} />
-      <CancelToDashButton handleCancelToDash={handleCancelToDash} />
-      <DeleteTest confirmDeletingTest={confirmDeletingTest} />
+      <div className="page-margins">
+        <UpdateTestDashButton changeSaveTest={changeSaveTest} />
+        <ShuffleSaveButton shuffle={saveTestThanShuffle} />
+        <CancelToDashButton handleCancelToDash={handleCancelToDash} />
+        <DeleteTest confirmDeletingTest={confirmDeletingTest} />
+      </div>
     </div>
   );
 };

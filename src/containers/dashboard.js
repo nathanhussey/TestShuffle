@@ -2,7 +2,8 @@
 /* eslint-disable no-tabs */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState, useEffect } from "react";
-import { Layout, Menu, Icon } from "antd";
+import { Redirect } from "react-router-dom";
+import { Layout, Menu, Icon, Button } from "antd";
 import LoadTitles from "../components/LoadTitles";
 import axios from "axios";
 import CreateTestCard from "../components/CreateTestCard";
@@ -11,6 +12,7 @@ const Dashboard = () => {
   const [currentKey, setCurrentKey] = useState(["1"]);
   const [homeData, setHomeData] = useState([]);
   const [titlesData, setTitlesData] = useState([]);
+  const [redirectToLogin, setRedirectToLogin] = useState(false);
 
   useEffect(() => {
     axios
@@ -26,7 +28,10 @@ const Dashboard = () => {
           console.log(response);
         },
         err => {
-          console.log(err.response);
+          console.log(err.response.data);
+          if (err.response.data === "invalid token") {
+            setRedirectToLogin(true);
+          }
         }
       );
   }, []);
@@ -34,11 +39,21 @@ const Dashboard = () => {
   const getToken = () => {
     return localStorage.getItem("token");
   };
+
+  const signOut = () => {
+    localStorage.removeItem("token");
+    setRedirectToLogin(true);
+  };
   const handleMenuClick = e => {
     setCurrentKey([e.key]);
   };
 
   const { Header, Content, Footer, Sider } = Layout;
+
+  if (redirectToLogin) {
+    return <Redirect to="/login" />;
+  }
+
   let content;
   console.log(currentKey[0]);
   if (currentKey[0] === "1") {
@@ -49,7 +64,16 @@ const Dashboard = () => {
       </div>
     );
   } else {
-    content = "nav2 here";
+    content = (
+      <Button
+        type="primary"
+        size="large"
+        className="f4 lh-copy ma2"
+        onClick={signOut}
+      >
+        Sign Out
+      </Button>
+    );
   }
   return (
     <Layout className=" vh-100">
@@ -72,12 +96,12 @@ const Dashboard = () => {
         >
           <Menu.Item key="1">
             <Icon type="user" />
-            <span className="nav-text">nav 1</span>
+            <span className="nav-text">Home</span>
           </Menu.Item>
 
           <Menu.Item key="2">
             <Icon type="user" />
-            <span className="nav-text">nav 2</span>
+            <span className="nav-text">Profile</span>
           </Menu.Item>
         </Menu>
       </Sider>

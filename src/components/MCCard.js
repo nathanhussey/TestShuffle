@@ -112,17 +112,10 @@ const MCCard = ({
             md={20}
             lg={20}
             xl={20}
-            className="bg-light-blue pa3 mt2 br3"
+            className="shadow-1 pa3 mt3 br3"
           >
             <Row>
-              <Col
-                xs={24}
-                sm={24}
-                md={24}
-                lg={24}
-                xl={24}
-                className="bg-light-blue mt2 br3"
-              >
+              <Col xs={24} sm={24} md={24} lg={24} xl={24} className=" mt2 br3">
                 <div>Question</div>
                 <QuestionCard
                   questionInput={questionsComp}
@@ -132,14 +125,7 @@ const MCCard = ({
               </Col>
             </Row>
             <Row type="flex" justify="start" align="middle">
-              <Col
-                xs={24}
-                sm={24}
-                md={24}
-                lg={24}
-                xl={24}
-                className="bg-light-blue"
-              >
+              <Col xs={24} sm={24} md={24} lg={24} xl={24} className="">
                 <div>Answers</div>
                 <AnswerList
                   answers={answersComp}
@@ -174,7 +160,7 @@ const MCCard = ({
             md={20}
             lg={20}
             xl={20}
-            className="bg-light-blue pa3 mt2 br3"
+            className="shadow-1 pa3 mt3 br3"
           >
             <Row>
               <Col
@@ -183,27 +169,28 @@ const MCCard = ({
                 md={24}
                 lg={24}
                 xl={24}
-                className="bg-light-blue mt2 mb4 br3"
+                className=" mt2 mb4 br3"
               >
                 <div>Question</div>
                 {questionsComp}
               </Col>
             </Row>
             <Row type="flex" justify="start" align="middle">
-              <Col
-                xs={24}
-                sm={24}
-                md={24}
-                lg={24}
-                xl={24}
-                className="bg-light-blue"
-              >
+              <Col xs={24} sm={24} md={24} lg={24} xl={24} className="">
                 <div>Answers</div>
                 <AnswerListStatic answers={answersComp} />
               </Col>
-              <Col xs={24} sm={24} md={24} lg={24} xl={24} offset={22}>
-                <span className="child bg-black-40 " onClick={handleEdit}>
-                  Edit
+              <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                <span
+                  className="child  pt1 pb1 pr2 pl2 ma1 mt2 br2"
+                  style={{
+                    cursor: "pointer",
+                    backgroundColor: "#4285f4",
+                    color: "white"
+                  }}
+                  onClick={handleEdit}
+                >
+                  Edit Question
                 </span>
               </Col>
             </Row>

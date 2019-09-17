@@ -6,10 +6,10 @@ const UpdateTestDashButton = ({ changeSaveTest }) => {
     <Button
       type="primary"
       size="large"
-      className="f4 lh-copy ma2"
+      className="f4 lh-copy mr2"
       onClick={changeSaveTest}
     >
-      Update & Exit To DashBoard
+      Save & Exit To DashBoard
     </Button>
   );
 };

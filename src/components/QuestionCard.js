@@ -6,7 +6,6 @@ const QuestionCard = ({ questionInput, updateComp, isUpdateClicked }) => {
 
   useEffect(() => {
     if (isUpdateClicked) {
-      console.log("it woks");
       updateComp(question);
     }
   }, [isUpdateClicked]);

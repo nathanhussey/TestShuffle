@@ -1,45 +1,101 @@
 import React from "react";
 import { Row, Col, Button } from "antd";
 import { Link } from "react-router-dom";
-import gradStudent from "../../images/academic-degree.png";
+import DemoTest from "./DemoTest";
 import Nav from "../Nav";
+import teacher from "../../images/undraw_teaching_f1cm.svg";
+import student from "../../images/undraw_exams_g4ow.svg";
+import "./Homepage.css";
 
 const Homepage = () => (
   <div>
     <Nav />
-    <Row type="flex" justify="start" align="middle" className=" vh-75">
-      <Col xs={24} sm={24} md={12} lg={12} xl={6} className="mr5" offset={6}>
+    <Row type="flex" justify="center" align="middle" className="hero">
+      <Col
+        xs={24}
+        sm={24}
+        md={12}
+        lg={8}
+        xl={8}
+        className="flex-item1 block-display"
+      >
         <h1 className="f1 lh-title">Increase interity in your classroom </h1>
 
         <h2 className="f4 lh-copy mb4">
-          Easily create multiple versions of the same test with shuffled test
+          Easily create multiple verions of the same test with shuffled tests
           answers{" "}
         </h2>
         <Link to="/signup">
-          <Button type="primary" size="large" className="f4 lh-copy mt3">
+          <Button type="primary" size="large" className="f4 lh-copy mt3 mr2">
             Sign Up Free
           </Button>
         </Link>
+        <Link to="/demotest">
+          <Button type="primary" size="large" className="f4 lh-copy mt3">
+            Try Demo
+          </Button>
+        </Link>
       </Col>
-      <Col xs={24} sm={24} md={12} lg={12} xl={6} className="pa3">
-        <img src={gradStudent} height={500} width={700} alt="cartoon student" />
-      </Col>
-    </Row>
-    <Row type="flex" justify="start" align="middle" className="vh-75 ">
-      <Col xs={24} sm={24} md={8} lg={8} xl={4} className="tc" offset={6}>
-        <h1>title 1 </h1>
-        <h2>sub title 1 </h2>
-      </Col>
-      <Col xs={24} sm={24} md={8} lg={18} xl={4} className="tc">
-        <h1>title 2</h1>
-        <h2>sub title 2 </h2>
-      </Col>
-      <Col xs={24} sm={24} md={8} lg={8} xl={4} className="tc">
-        <h1>title 3</h1>
-        <h2>sub title 3 </h2>
+      <Col
+        xs={24}
+        sm={24}
+        md={12}
+        lg={8}
+        xl={8}
+        className="flex-item1 block-display"
+      >
+        <img className="image-teacher" src={teacher} />
       </Col>
     </Row>
-    <Row type="flex" justify="start" align="middle" className="vh-25">
+
+    <Row
+      type="flex"
+      justify="center"
+      align="middle"
+      className="vh-75 text wave-image"
+    >
+      <Col xs={24} sm={24} md={24} lg={8} xl={4} className="tc margins">
+        <h1 className="mb4">
+          <em>Step 1</em>{" "}
+        </h1>
+        <h1>Sign up to Testshuffler</h1>
+        <h2>This way the tests you create can be saved for later </h2>
+      </Col>
+      <Col xs={24} sm={24} md={24} lg={8} xl={4} className="tc margins">
+        <h1 className="mb4">
+          <em>Step 2</em>
+        </h1>
+        <h1> Create a Test</h1>
+        <h2>Input the questions and answers to your multiple choice test </h2>
+      </Col>
+      <Col xs={24} sm={24} md={24} lg={8} xl={4} className="tc margins">
+        <h1 className="mb4">
+          <em>Step 3</em>{" "}
+        </h1>
+        <h1>Shuffle & Download</h1>
+        <h2>
+          Your all finished, a pdf with the shuffled answers will be downloaded
+          to your computer{" "}
+        </h2>
+      </Col>
+    </Row>
+
+    <Row type="flex" justify="center" align="middle" className=" hero vh-75">
+      <Col xs={24} sm={24} md={12} lg={8} xl={8} className="flex-item1">
+        <h1 className="f1 lh-title ">
+          Teachers care about the integity of classroom testing results.{" "}
+        </h1>
+      </Col>
+      <Col xs={24} sm={24} md={12} lg={12} xl={12} className="pa4">
+        <img src={student} />
+      </Col>
+    </Row>
+    <Row
+      type="flex"
+      justify="start"
+      align="middle"
+      className="background-color vh-25"
+    >
       <Col span={24} className="pa3 tc">
         <h1 className="f3 lh-solid">
           {" "}
@@ -48,26 +104,8 @@ const Homepage = () => (
         </h1>
       </Col>
     </Row>
-    <Row type="flex" justify="start" align="middle" className=" vh-100">
-      <Col xs={24} sm={24} md={12} lg={12} xl={6} className="mr5 " offset={6}>
-        <h1 className="f1 lh-title">
-          Teachers care about the integity of classroom testing results.{" "}
-        </h1>
-      </Col>
-      <Col xs={24} sm={24} md={12} lg={12} xl={6} className="pa3">
-        <img src={gradStudent} height={500} width={700} alt="cartoon student" />
-      </Col>
-    </Row>
-    <Row type="flex" justify="start" align="middle" className=" vh-100">
-      <Col
-        xs={24}
-        sm={24}
-        md={24}
-        lg={24}
-        xl={12}
-        className="pa3 tc"
-        offset={6}
-      >
+    <Row type="flex" justify="center" align="middle" className=" vh-100">
+      <Col xs={24} sm={24} md={24} lg={24} xl={24} className=" tc">
         <h1 className="f1 lh-title">
           We Made Testshuffler For Teachers - Like You{" "}
         </h1>
@@ -81,3 +119,7 @@ const Homepage = () => (
   </div>
 );
 export default Homepage;
+
+//<Col xs={24} sm={24} md={12} lg={12} xl={6} className="">
+//<img src={teacher} alt="teacher" className="landing-page" />
+//</Col>

@@ -39,6 +39,7 @@ const AnswerCard = ({
           <form>
             <label>
               <textarea
+                placeholder="Enter answer here"
                 type="text"
                 value={answer}
                 onChange={handleChange}

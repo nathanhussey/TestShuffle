@@ -1,4 +1,12 @@
-.log-in-padding{
-	padding-right:10.60em ;
-	padding-left:10.60em ; 
+.log-in-padding {
+  padding-right: 10.6em;
+  padding-left: 10.6em;
+}
+
+.button-padding {
+  display: flex;
+  justify-content: center;
+  padding-right: auto;
+  padding-left: auto;
+  width: 100%;
 }

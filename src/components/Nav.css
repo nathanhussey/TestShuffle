@@ -1,0 +1,14 @@
+.nav-margins {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 84em;
+  padding-top: 1em;
+  padding-bottom: 3em;
+}
+.logo {
+  display: flex;
+  height: 80px;
+}
