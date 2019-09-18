@@ -22,7 +22,7 @@ class NormalLoginForm extends React.Component {
         console.log("Received values of form: ", values);
         axios({
           method: "post",
-          url: "http://localhost:3001/user/login",
+          url: "https://pacific-beach-68901.herokuapp.com/user/login",
           data: {
             email: values.email,
             password: values.password

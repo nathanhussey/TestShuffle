@@ -29,14 +29,18 @@ const UpdateTestCard = ({ match }) => {
   const [cancellingTest, setCancellingTest] = useState(false);
   const [deletingTest, setDeletingTest] = useState(false);
   let tempTest = [];
+
   useEffect(() => {
     console.log(match);
     axios
-      .get(`http://localhost:3001/testcard/edit/${match.params.id}`, {
-        headers: {
-          Authorization: "Bearer " + getToken()
+      .get(
+        `https://pacific-beach-68901.herokuapp.com/testcard/edit/${match.params.id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + getToken()
+          }
         }
-      })
+      )
       .then(
         response => {
           setTestTitle(response.data.testTitle);
@@ -56,7 +60,7 @@ const UpdateTestCard = ({ match }) => {
       console.log(testData);
       axios
         .put(
-          `http://localhost:3001/testcard/edit/${match.params.id}`,
+          `https://pacific-beach-68901.herokuapp.com/testcard/edit/${match.params.id}`,
           {
             testTitle: testTitle,
             testCard: testData
@@ -88,7 +92,7 @@ const UpdateTestCard = ({ match }) => {
     if (didClickUpdateDash === true) {
       axios
         .put(
-          `http://localhost:3001/testcard/edit/${match.params.id}/saved`,
+          `https://pacific-beach-68901.herokuapp.com/testcard/edit/${match.params.id}`,
           {
             testTitle: testTitle,
             testCard: testData

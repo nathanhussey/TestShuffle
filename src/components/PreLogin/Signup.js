@@ -22,7 +22,7 @@ class NormalLoginForm extends React.Component {
       if (!err) {
         console.log("Received values of form: ", values);
         axios
-          .post("http://localhost:3001/user/signup", {
+          .post("https://pacific-beach-68901.herokuapp.com/user/signup", {
             email: values.email,
             password: values.password
           })

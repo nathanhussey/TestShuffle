@@ -52,32 +52,34 @@ const Homepage = () => (
       type="flex"
       justify="center"
       align="middle"
-      className="vh-75 text wave-image"
+      className="vh-75 text wave-image steps"
     >
-      <Col xs={24} sm={24} md={24} lg={8} xl={4} className="tc margins">
-        <h1 className="mb4">
-          <em>Step 1</em>{" "}
-        </h1>
-        <h1>Sign up to Testshuffler</h1>
-        <h2>This way the tests you create can be saved for later </h2>
-      </Col>
-      <Col xs={24} sm={24} md={24} lg={8} xl={4} className="tc margins">
-        <h1 className="mb4">
-          <em>Step 2</em>
-        </h1>
-        <h1> Create a Test</h1>
-        <h2>Input the questions and answers to your multiple choice test </h2>
-      </Col>
-      <Col xs={24} sm={24} md={24} lg={8} xl={4} className="tc margins">
-        <h1 className="mb4">
-          <em>Step 3</em>{" "}
-        </h1>
-        <h1>Shuffle & Download</h1>
-        <h2>
-          Your all finished, a pdf with the shuffled answers will be downloaded
-          to your computer{" "}
-        </h2>
-      </Col>
+      <div>
+        <Col xs={24} sm={24} md={24} lg={8} xl={4} className="tc margins">
+          <h1 className="mb4">
+            <em>Step 1</em>{" "}
+          </h1>
+          <h1>Sign up to Testshuffler</h1>
+          <h2>This way the tests you create can be saved for later </h2>
+        </Col>
+        <Col xs={24} sm={24} md={24} lg={8} xl={4} className="tc margins">
+          <h1 className="mb4">
+            <em>Step 2</em>
+          </h1>
+          <h1> Create a Test</h1>
+          <h2>Input the questions and answers to your multiple choice test </h2>
+        </Col>
+        <Col xs={24} sm={24} md={24} lg={8} xl={4} className="tc margins">
+          <h1 className="mb4">
+            <em>Step 3</em>{" "}
+          </h1>
+          <h1>Shuffle & Download</h1>
+          <h2>
+            Your all finished, a pdf with the shuffled answers will be
+            downloaded to your computer{" "}
+          </h2>
+        </Col>
+      </div>
     </Row>
 
     <Row type="flex" justify="center" align="middle" className=" hero vh-75">

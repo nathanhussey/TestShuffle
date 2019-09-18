@@ -5,7 +5,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Button } from "antd";
 import "./Nav.css";
-import logo from "../images/logo2.png";
+import logo from "../images/test-shuffle-logo.png";
 
 const Nav = () => {
   return (
@@ -18,11 +18,11 @@ const Nav = () => {
         </div>
 
         <div>
-          <Button type="primary" className=" mt4">
+          <Button type="primary" className="">
             <Link to="/signup">Sign Up</Link>
           </Button>
 
-          <Button type="link" className="mt4">
+          <Button type="link" className="">
             <Link to="/login">Log In</Link>
           </Button>
         </div>

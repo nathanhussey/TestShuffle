@@ -43,7 +43,7 @@ const TestCard = () => {
       console.log(testData);
       axios
         .post(
-          "http://localhost:3001/testcard/create-new",
+          "https://pacific-beach-68901.herokuapp.com/testcard/create-new",
           {
             testTitle: testTitle,
             testCard: testData
@@ -73,7 +73,7 @@ const TestCard = () => {
     if (didClickSaveDash === true) {
       axios
         .post(
-          "http://localhost:3001/testcard/create-new",
+          "https://pacific-beach-68901.herokuapp.com/testcard/create-new",
           {
             testTitle: testTitle,
             testCard: testData

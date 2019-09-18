@@ -16,7 +16,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/user/dashboard", {
+      .get("https://pacific-beach-68901.herokuapp.com/user/dashboard", {
         headers: {
           Authorization: "Bearer " + getToken()
         }

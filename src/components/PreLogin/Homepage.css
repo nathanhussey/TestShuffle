@@ -53,6 +53,18 @@
   margin-left: 1em;
   margin-right: 1em;
 }
+@media (max-width: 1166px) {
+  .margins {
+    font-size: 12px;
+    width: 30em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .step {
+    flex-direction: column;
+  }
+}
 
 @media (max-width: 960px) {
   .hero {
@@ -63,7 +75,7 @@
     margin-right: auto;
   }
 }
-@media (max-width: 1005px) {
+@media (max-width: 1095px) {
   .margins {
     font-size: 12px;
     width: 100%;
@@ -83,13 +95,5 @@
     background-repeat: no-repeat;
     background-size: auto 600px;
     background-position: 0px 50px;
-  }
-}
-@media (max-width: 1456px) {
-  .margins {
-    font-size: 12px;
-    width: 20em;
-    margin-left: 1em;
-    margin-right: 1em;
   }
 }

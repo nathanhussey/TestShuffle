@@ -5,10 +5,10 @@
   margin-right: auto;
   margin-left: auto;
   max-width: 84em;
-  padding-top: 1em;
-  padding-bottom: 3em;
+  padding-top: 2em;
+  padding-bottom: 2em;
 }
 .logo {
   display: flex;
-  height: 80px;
+  height: 50px;
 }
