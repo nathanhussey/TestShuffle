@@ -85,7 +85,7 @@ const Homepage = () => (
     <Row type="flex" justify="center" align="middle" className=" hero vh-75">
       <Col xs={24} sm={24} md={12} lg={8} xl={8} className="flex-item1">
         <h1 className="f1 lh-title ">
-          Teachers care about the intergity of classroom testing results.{" "}
+          Teachers care about the integrity of classroom testing results.{" "}
         </h1>
       </Col>
       <Col xs={24} sm={24} md={12} lg={12} xl={12} className="pa4">
