@@ -4,7 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 import ShowCardList from "../ShowCardList";
 import AddMCCard from "../AddMCCard";
 import SaveTestButton from "../SaveTestButton";
-import ShuffleSaveButton from "../ShuffleSaveButton";
+import ShuffleDownloadButton from "../ShuffleDownloadButton";
 import CancelToDashButton from "../CancelToDashButton";
 import ConfirmCancelTest from "../ConfirmCancelTest";
 import "../../containers/testCard.css";
@@ -18,12 +18,11 @@ const DemoTest = () => {
   const [testData, setTestData] = useState([
     {
       mcId: 1,
-      question:
-        "sunt aut facere repellat provident wccaecati optio reprehenderit?",
+      question: "Enter question here",
       answers: [
         {
           id: 424,
-          answer: "quia et suscipit",
+          answer: "Enter answer here",
           checked: false
         }
       ]
@@ -342,7 +341,7 @@ const DemoTest = () => {
         </h3>
       </div>
       <div className="intruction-margins">
-        <h3>Do not forget - Click save after you make changes to questions </h3>
+        <h3>Do not forget - Click save after you edit a question </h3>
       </div>
       <div className="intruction-margins">
         <h3>Do not forget - Checkmark correct answers</h3>
@@ -362,9 +361,7 @@ const DemoTest = () => {
       </div>
 
       <div className="pages-margins ">
-        <SaveTestButton changeSaveTest={changeSaveTest} />
-
-        <ShuffleSaveButton shuffle={saveTestThanShuffle} />
+        <ShuffleDownloadButton shuffle={saveTestThanShuffle} />
 
         <CancelToDashButton handleCancelToDash={handleCancelToDash} />
       </div>

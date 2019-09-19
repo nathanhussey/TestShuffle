@@ -410,7 +410,7 @@ const UpdateTestCard = ({ match }) => {
         </h3>
       </div>
       <div className="intruction-margins">
-        <h3>Do not forget - Click save after you make changes to questions </h3>
+        <h3>Do not forget - Click save after you edit a question</h3>
       </div>
       <div className="intruction-margins">
         <h3>Do not forget - Checkmark correct answers</h3>

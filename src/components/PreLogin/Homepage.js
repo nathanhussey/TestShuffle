@@ -75,7 +75,7 @@ const Homepage = () => (
           </h1>
           <h1>Shuffle & Download</h1>
           <h2>
-            Your all finished! A pdf with the shuffled answers will be
+            You are all finished! A pdf with the shuffled answers will be
             downloaded to your computer{" "}
           </h2>
         </Col>
