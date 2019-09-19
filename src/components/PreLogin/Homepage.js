@@ -19,7 +19,7 @@ const Homepage = () => (
         xl={8}
         className="flex-item1 block-display"
       >
-        <h1 className="f1 lh-title">Increase interity in your classroom </h1>
+        <h1 className="f1 lh-title">Increase integrity in your classroom </h1>
 
         <h2 className="f4 lh-copy mb4">
           Easily create multiple versions of the same multiple choice test along
@@ -85,7 +85,7 @@ const Homepage = () => (
     <Row type="flex" justify="center" align="middle" className=" hero vh-75">
       <Col xs={24} sm={24} md={12} lg={8} xl={8} className="flex-item1">
         <h1 className="f1 lh-title ">
-          Teachers care about the integity of classroom testing results.{" "}
+          Teachers care about the intergity of classroom testing results.{" "}
         </h1>
       </Col>
       <Col xs={24} sm={24} md={12} lg={12} xl={12} className="pa4">
@@ -101,7 +101,7 @@ const Homepage = () => (
       <Col span={24} className="pa3 tc">
         <h1 className="f3 lh-solid">
           {" "}
-          " Our goal is to increase fairness in the classroom by decrasing
+          " Our goal is to increase fairness in the classroom by decreasing
           incidents of cheating"{" "}
         </h1>
       </Col>
@@ -109,7 +109,7 @@ const Homepage = () => (
     <Row type="flex" justify="center" align="middle" className=" vh-100">
       <Col xs={24} sm={24} md={24} lg={24} xl={24} className=" tc">
         <h1 className="f1 lh-title">
-          We Made Testshuffler For Teachers - Like You{" "}
+          We Made Testshuffle For Teachers - Like You{" "}
         </h1>
         <Link to="/signup">
           <Button type="primary" size="large" className="f4 lh-copy ma3">
