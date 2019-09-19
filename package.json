@@ -1,6 +1,9 @@
 {
   "name": "testshuffler",
   "version": "0.1.0",
+  "engines": {
+    "node": "10.15.3"
+  },
   "private": true,
   "dependencies": {
     "antd": "^3.20.3",
