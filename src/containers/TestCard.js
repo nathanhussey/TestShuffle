@@ -366,6 +366,9 @@ const TestCard = () => {
         </h3>
       </div>
       <div className="intruction-margins">
+        <h3>Do not forget - Click save after you make changes to questions </h3>
+      </div>
+      <div className="intruction-margins">
         <h3>Do not forget - Checkmark correct answers</h3>
       </div>
       <div className="intruction-margins">

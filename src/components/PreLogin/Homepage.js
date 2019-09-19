@@ -22,8 +22,8 @@ const Homepage = () => (
         <h1 className="f1 lh-title">Increase interity in your classroom </h1>
 
         <h2 className="f4 lh-copy mb4">
-          Easily create multiple verions of the same test with shuffled tests
-          answers{" "}
+          Easily create multiple versions of the same multiple choice test along
+          with the corresponding answer key{" "}
         </h2>
         <Link to="/signup">
           <Button type="primary" size="large" className="f4 lh-copy mt3 mr2">
@@ -75,7 +75,7 @@ const Homepage = () => (
           </h1>
           <h1>Shuffle & Download</h1>
           <h2>
-            Your all finished, a pdf with the shuffled answers will be
+            Your all finished! A pdf with the shuffled answers will be
             downloaded to your computer{" "}
           </h2>
         </Col>
