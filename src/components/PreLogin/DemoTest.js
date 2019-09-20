@@ -15,19 +15,7 @@ import axios from "axios";
 
 const DemoTest = () => {
   const [testTitle, setTestTitle] = useState("Test Title here");
-  const [testData, setTestData] = useState([
-    {
-      mcId: 1,
-      question: "Enter question here",
-      answers: [
-        {
-          id: 424,
-          answer: "Enter answer here",
-          checked: false
-        }
-      ]
-    }
-  ]);
+  const [testData, setTestData] = useState([]);
   const [isTestSaved, setIsTestSaved] = useState(false);
   const [shuffledData, setShuffledData] = useState([]);
   const [didClickShuffle, setDidClickShuffle] = useState(false);
@@ -324,30 +312,32 @@ const DemoTest = () => {
   }
   //display test
   return (
-    <div>
+    <div className="pl3 pr3">
       {titleContent}
-      <div className="intruction-margins">
-        <h1 className="red">
-          This is for Demo purposes only info will not be save. Sign up or login
-          to save data{" "}
-        </h1>
-      </div>
-      <div className="intruction-margins">
-        <h2>Instructions</h2>
-      </div>
-      <div className="intruction-margins">
-        <h3 className="red">
-          Only add 5 answers to a question (letters "a" to "e"){" "}
-        </h3>
-      </div>
-      <div className="intruction-margins">
-        <h3>Do not forget - Click save after you edit a question </h3>
-      </div>
-      <div className="intruction-margins">
-        <h3>Do not forget - Checkmark correct answers</h3>
-      </div>
-      <div className="intruction-margins">
-        <h3>Questions will be automatically numbered in pdf</h3>
+      <div className="ba b--dotted br3 pa2">
+        <div className="intruction-margins ">
+          <h1 className="red">
+            This is for Demo purposes only info will not be save. Sign up or
+            login to save data{" "}
+          </h1>
+        </div>
+        <div className="intruction-margins">
+          <h2>Instructions</h2>
+        </div>
+        <div className="intruction-margins">
+          <h3 className="red">
+            Only add 5 answers to a question (letters "a" to "e"){" "}
+          </h3>
+        </div>
+        <div className="intruction-margins">
+          <h3>Do not forget - Click save after you edit a question </h3>
+        </div>
+        <div className="intruction-margins">
+          <h3>Do not forget - Checkmark correct answers</h3>
+        </div>
+        <div className="intruction-margins">
+          <h3>Questions will be automatically numbered in pdf</h3>
+        </div>
       </div>
 
       <ShowCardList
@@ -356,7 +346,7 @@ const DemoTest = () => {
         isTestSaved={isTestSaved}
         handleSaveTest={handleSaveTest}
       />
-      <div className="add-mc-margins ">
+      <div className="add-mc-margins">
         <AddMCCard handleClick={handleAddMCCard} />
       </div>
 

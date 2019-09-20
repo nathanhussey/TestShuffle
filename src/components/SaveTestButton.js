@@ -6,7 +6,7 @@ const SaveTestButton = ({ changeSaveTest }) => {
     <Button
       type="primary"
       size="large"
-      className="f4 lh-copy mr2"
+      className="f4 lh-copy mr2 mt3"
       onClick={changeSaveTest}
     >
       Save Test & Go to Dashboard

@@ -175,9 +175,9 @@ const MCCard = ({
           <Col
             xs={24}
             sm={24}
-            md={20}
-            lg={20}
-            xl={20}
+            md={24}
+            lg={24}
+            xl={24}
             className="shadow-1 pa3 mt3 br3"
           >
             <Row>

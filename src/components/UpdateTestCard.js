@@ -112,11 +112,14 @@ const UpdateTestCard = ({ match }) => {
 
   const handleDeleteTest = () => {
     axios
-      .delete(`http://localhost:3001/testcard/edit/${match.params.id}`, {
-        headers: {
-          Authorization: "Bearer " + getToken()
+      .delete(
+        `https://pacific-beach-68901.herokuapp.com/testcard/edit/${match.params.id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + getToken()
+          }
         }
-      })
+      )
       .then(response => {
         console.log(response);
       })
@@ -399,25 +402,28 @@ const UpdateTestCard = ({ match }) => {
   }
   console.log(testData);
   return (
-    <div>
+    <div className="pl3 pr3">
       {titleContent}
-      <div className="intruction-margins">
-        <h2>Instructions</h2>
+      <div className="ba b--dotted br3 pa2">
+        <div className="intruction-margins">
+          <h2>Instructions</h2>
+        </div>
+        <div className="intruction-margins">
+          <h3 className="red">
+            Only add 5 answers to a question (letters "a" to "e"){" "}
+          </h3>
+        </div>
+        <div className="intruction-margins">
+          <h3>Do not forget - Click save after you edit a question</h3>
+        </div>
+        <div className="intruction-margins">
+          <h3>Do not forget - Checkmark correct answers</h3>
+        </div>
+        <div className="intruction-margins">
+          <h3>Questions will be automatically numbered in pdf</h3>
+        </div>
       </div>
-      <div className="intruction-margins">
-        <h3 className="red">
-          Only add 5 answers to a question (letters "a" to "e"){" "}
-        </h3>
-      </div>
-      <div className="intruction-margins">
-        <h3>Do not forget - Click save after you edit a question</h3>
-      </div>
-      <div className="intruction-margins">
-        <h3>Do not forget - Checkmark correct answers</h3>
-      </div>
-      <div className="intruction-margins">
-        <h3>Questions will be automatically numbered in pdf</h3>
-      </div>
+
       <ShowCardList
         testData={testData}
         handleDeleteMCCard={handleDeleteMCCard}

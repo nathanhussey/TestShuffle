@@ -1,18 +1,21 @@
-.pages-margins {
+.page-margins {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-top: 2em;
+  flex-wrap: wrap;
   margin-right: auto;
   margin-left: auto;
   max-width: 101em;
+}
+
+.dark-blue:hover {
+  background-color: #1890ff;
 }
 
 .intruction-margins {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-
   margin-right: auto;
   margin-left: auto;
   max-width: 101em;

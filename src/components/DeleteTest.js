@@ -6,7 +6,7 @@ const DeleteTest = ({ confirmDeletingTest }) => {
     <Button
       type="primary"
       size="large"
-      className="f4 lh-copy mr2"
+      className="f4 lh-copy mr2 mt3"
       onClick={confirmDeletingTest}
     >
       Delete Test
