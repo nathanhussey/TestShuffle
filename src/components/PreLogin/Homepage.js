@@ -52,7 +52,7 @@ const Homepage = () => (
       type="flex"
       justify="center"
       align="middle"
-      className="vh-75 text wave-image steps"
+      className="vh-75 text wave-image steps step-mobile"
     >
       <div>
         <Col xs={24} sm={24} md={24} lg={8} xl={4} className="tc margins">
