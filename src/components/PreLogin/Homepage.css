@@ -91,3 +91,12 @@
     background-position: 0px 50px;
   }
 }
+
+@media (min-width: 1780px) {
+  .wave-image {
+    background-image: url(../../images/wave.svg);
+    background-repeat: no-repeat;
+    background-size: auto 800px;
+    background-position: 0px 50px;
+  }
+}
