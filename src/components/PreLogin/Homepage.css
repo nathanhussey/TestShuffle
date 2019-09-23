@@ -96,7 +96,7 @@
   .wave-image {
     background-image: url(../../images/wave.svg);
     background-repeat: no-repeat;
-    background-size: auto 800px;
+    background-size: auto 1000px;
     background-position: 0px 50px;
   }
 }
