@@ -345,24 +345,16 @@ const TestCard = () => {
   return (
     <div className="pr3 pl3 ">
       {titleContent}
-      <div className="ba b--dotted br3 pa2">
-        <div className="intruction-margins">
+      <div className="ba b--dotted br3 pa2 intruction-margins">
+        <ul className="adjust-list-padding">
           <h2>Instructions</h2>
-        </div>
-        <div className="intruction-margins">
           <h3 className="red">
             Only add 5 answers to a question (letters "a" to "e"){" "}
           </h3>
-        </div>
-        <div className="intruction-margins">
           <h3>Do not forget - Click save after you edit a question </h3>
-        </div>
-        <div className="intruction-margins">
           <h3>Do not forget - Checkmark correct answers</h3>
-        </div>
-        <div className="intruction-margins">
           <h3>Questions will be automatically numbered in pdf</h3>
-        </div>
+        </ul>
       </div>
 
       <ShowCardList

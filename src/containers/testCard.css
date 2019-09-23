@@ -30,3 +30,7 @@
   margin-left: auto;
   max-width: 101em;
 }
+
+.adjust-list-padding {
+  padding-inline-start: 0;
+}

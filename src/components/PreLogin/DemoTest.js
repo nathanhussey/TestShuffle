@@ -312,32 +312,22 @@ const DemoTest = () => {
   }
   //display test
   return (
-    <div className="pl3 pr3">
+    <div className="">
       {titleContent}
-      <div className="ba b--dotted br3 pa2">
-        <div className="intruction-margins ">
+      <div className="ba b--dotted br3 pa2 intruction-margins">
+        <ul className="adjust-list-padding">
           <h1 className="red">
             This is for Demo purposes only info will not be save. Sign up or
             login to save data{" "}
           </h1>
-        </div>
-        <div className="intruction-margins">
           <h2>Instructions</h2>
-        </div>
-        <div className="intruction-margins">
           <h3 className="red">
             Only add 5 answers to a question (letters "a" to "e"){" "}
           </h3>
-        </div>
-        <div className="intruction-margins">
           <h3>Do not forget - Click save after you edit a question </h3>
-        </div>
-        <div className="intruction-margins">
           <h3>Do not forget - Checkmark correct answers</h3>
-        </div>
-        <div className="intruction-margins">
           <h3>Questions will be automatically numbered in pdf</h3>
-        </div>
+        </ul>
       </div>
 
       <ShowCardList
@@ -350,7 +340,7 @@ const DemoTest = () => {
         <AddMCCard handleClick={handleAddMCCard} />
       </div>
 
-      <div className="pages-margins ">
+      <div className="page-margins ">
         <ShuffleDownloadButton shuffle={saveTestThanShuffle} />
 
         <CancelToDashButton handleCancelToDash={handleCancelToDash} />
