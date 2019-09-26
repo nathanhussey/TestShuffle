@@ -59,7 +59,7 @@ const Homepage = () => (
           <h1 className="mb4">
             <em>Step 1</em>{" "}
           </h1>
-          <h1>Sign up to Testshuffler</h1>
+          <h1>Sign up to Testshuffle</h1>
           <h2>This way the tests you create can be saved for later </h2>
         </Col>
         <Col xs={24} sm={24} md={24} lg={8} xl={4} className="tc margins">
@@ -101,7 +101,7 @@ const Homepage = () => (
       <Col span={24} className="pa3 tc">
         <h1 className="f3 lh-solid">
           {" "}
-          " Our goal is to increase fairness in the classroom by decreasing
+          "Our goal is to increase fairness in the classroom by decreasing
           incidents of cheating"{" "}
         </h1>
       </Col>
