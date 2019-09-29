@@ -1,4 +1,7 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Summary
+
+This app was created to allow teachers to easily create multiple versions of the same multiple choice test along with the corresponding answer key.
+
 
 ## Available Scripts
 
