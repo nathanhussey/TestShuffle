@@ -248,7 +248,7 @@ const DemoTest = () => {
     return <Redirect to="/login" />;
   }
   if (redirect) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/signup" />;
   }
 
   if (cancellingTest) {
@@ -317,8 +317,8 @@ const DemoTest = () => {
       <div className="ba b--dotted br3 pa2 intruction-margins">
         <ul className="adjust-list-padding">
           <h1 className="red">
-            This is for Demo purposes only info will not be save. Sign up or
-            login to save data{" "}
+            This is for demo purposes only infomation will not be saved. Sign up
+            or login to save data.{" "}
           </h1>
           <h2>Instructions</h2>
           <h3 className="red">

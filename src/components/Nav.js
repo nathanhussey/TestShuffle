@@ -12,7 +12,6 @@ const Nav = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   const handleToggleMenu = () => {
-    console.log("clicked");
     switch (showMenu) {
       case false:
         setShowMenu(true);
@@ -24,7 +23,7 @@ const Nav = () => {
         console.log("error with toggle");
     }
   };
-  console.log(showMenu);
+
   let toggleMenu;
   if (showMenu === true) {
     toggleMenu = (
@@ -39,6 +38,7 @@ const Nav = () => {
     );
   } else {
   }
+
   return (
     <div>
       <div className="nav-margins-mobile">
