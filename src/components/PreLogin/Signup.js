@@ -114,5 +114,5 @@ class NormalLoginForm extends React.Component {
     );
   }
 }
-
-export const SignUp = Form.create({ name: "normal_login" })(NormalLoginForm);
+let SignUp = null;
+export default SignUp = Form.create({ name: "normal_login" })(NormalLoginForm);

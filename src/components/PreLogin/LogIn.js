@@ -121,8 +121,5 @@ class NormalLoginForm extends React.Component {
     );
   }
 }
-
-export const LogIn = Form.create({ name: "normal_login" })(NormalLoginForm);
-
-//code to add forgot password feature later
-//<a className="login-form-forgot" href="">Forgot password</a>
+let LogIn = null;
+export default LogIn = Form.create({ name: "normal_login" })(NormalLoginForm);
