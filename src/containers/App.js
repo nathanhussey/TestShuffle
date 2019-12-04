@@ -3,6 +3,7 @@ import React, { lazy, Suspense } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Homepage from "../components/PreLogin/Homepage";
+import ErrorBoundary from "../components/ErrorBoundary";
 // eslint-disable-next-line import/named
 
 // eslint-disable-next-line import/named
@@ -19,14 +20,16 @@ const App = () => (
     <div>
       <Switch>
         <Route exact path="/" component={Homepage} />
-        <Suspense fallback={<div>...Loading</div>}>
-          <Route exact path="/signup" component={SignUp} />
-          <Route exact path="/login" component={LogIn} />
-          <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/testcard" component={TestCard} />
-          <Route path="/testcard/:id" component={UpdateTestCard} />
-          <Route path="/demotest" component={DemoTest} />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<div>...Loading</div>}>
+            <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/login" component={LogIn} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/testcard" component={TestCard} />
+            <Route path="/testcard/:id" component={UpdateTestCard} />
+            <Route path="/demotest" component={DemoTest} />
+          </Suspense>
+        </ErrorBoundary>
       </Switch>
     </div>
   </Router>
