@@ -15,17 +15,13 @@ const QuestionCard = ({ questionInput, updateComp, isUpdateClicked }) => {
   };
   return (
     <div>
-      <form>
-        <label>
-          <textarea
-            type="text"
-            value={question}
-            onChange={handleChange}
-            cols="100"
-            rows="2"
-          />
-        </label>
-      </form>
+      <textarea
+        type="text"
+        value={question}
+        onChange={handleChange}
+        cols="100"
+        rows="2"
+      />
     </div>
   );
 };

@@ -36,18 +36,14 @@ const AnswerCard = ({
           ></Checkbox>
         </Col>
         <Col>
-          <form>
-            <label>
-              <textarea
-                placeholder="Enter answer here"
-                type="text"
-                value={answer}
-                onChange={handleChange}
-                cols="100"
-                rows="2"
-              />
-            </label>
-          </form>
+          <textarea
+            placeholder="Enter answer here"
+            type="text"
+            value={answer}
+            onChange={handleChange}
+            cols="100"
+            rows="2"
+          />
         </Col>
         <Col className="ma2">
           <Icon

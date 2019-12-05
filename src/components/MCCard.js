@@ -94,7 +94,7 @@ const MCCard = ({
   const goBack = () => {
     setMCCardState("");
   };
-
+  console.log(MCCardState);
   if (MCCardState === "DELETING") {
     return (
       <DeleteCard
