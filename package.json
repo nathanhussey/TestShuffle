@@ -11,7 +11,7 @@
     "array-move": "^2.1.0",
     "array.prototype.move": "0.0.4",
     "axios": "^0.19.0",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "less": "^3.10.3",
     "react": "^16.8.6",
     "react-app-rewired": "^2.1.3",
